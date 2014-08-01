@@ -15,9 +15,9 @@ import java.util.HashSet;
 public class Solution {
 	
 	class Line {
-		int slope;
-		int intercept;
-		Line(int slope, int intercept) { this.slope = slope; this.intercept = intercept; }
+		double slope;
+		double intercept;
+		Line(double slope, double intercept) { this.slope = slope; this.intercept = intercept; }
 		
 		public boolean equals(Object o) {
 			if (!( o instanceof Line)) {
@@ -28,7 +28,7 @@ public class Solution {
 		}
 		
 		public int hashCode() {
-			return this.slope + this.intercept; // ^ this.slope ^ this.intercept;
+			return (int)this.slope + (int)this.intercept; // ^ this.slope ^ this.intercept;
 		}
 	}
 	
@@ -57,8 +57,8 @@ public class Solution {
         			}
         			points_co_position = same_point_counter.get(points[i]).intValue();
         		} else { //same line
-        			int slope = 0;
-        			int intercept = 0;
+        			double slope = 0;
+        			double intercept = 0;
         			if (points[i].x == points[j].x) {
         				slope = Integer.MAX_VALUE;
         				intercept = 0;
@@ -85,7 +85,12 @@ public class Solution {
     }
     
     public static void main(String [] args) {
-    	Point [] points = {new Point(1,1), new Point(1, 1), new Point(1, 1)};
+    	/*
+    	 * Input:	[(84,250),(0,0),(1,0),(0,-70),(0,-70),(1,-1),(21,10),(42,90),(-42,-230)]
+			Output:	8
+			Expected:	6
+    	 */
+    	Point [] points = {new Point(84,250), new Point(0, 0), new Point(0, 1), new Point(0, -70), new Point(0, -70), new Point(1, -1), new Point(21, 10), new Point(42, 90), new Point(-42, -230)};
     	Solution sol = new Solution();
     	int res = sol.maxPoints(points);
     	System.out.print(res);
