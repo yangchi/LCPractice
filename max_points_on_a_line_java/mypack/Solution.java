@@ -9,6 +9,7 @@
  */
 package mypack;
 
+import java.lang.*;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -24,7 +25,7 @@ public class Solution {
 				return false;
 			}
 			Line line = (Line)o;
-			return this.slope == line.slope && this.intercept == line.intercept;
+			return ((0 == Double.compare(this.slope, line.slope)) && (0 == Double.compare(this.intercept, line.intercept)));
 		}
 		
 		public int hashCode() {
