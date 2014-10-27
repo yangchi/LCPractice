@@ -14,8 +14,7 @@ class Solution:
             if interval.end < newInterval.start:
                 result.append(interval)
             elif interval.start > newInterval.end:
-                newIntervalCopy = Interval(newInterval.start, newInterval.end)
-                result.append(newIntervalCopy)
+                result.append(copy.copy(newInterval))
                 newInterval.start = interval.start
                 newInterval.end = interval.end
             elif interval.start <= newInterval.start or interval.end >= newInterval.end:
