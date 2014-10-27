@@ -1,15 +1,10 @@
 public class Solution {
 	public boolean canJump(int[] A) {
-		boolean [] makeit = new boolean[A.length];
-		makeit[0] = true;
-		for(int i = 0; i < A.length; i++) {
-			int current = A[i];
-			if(i + current >= A.length)
-				current = A.length - i - 1;
-			while(current > 0) {
-				makeit[i + current--] = true;
-			}
+		int target = A.length - 1;
+		for(int index = A.length - 2; index >= 0; index--) {
+			if(A[index] + index >= target)
+				target = index;
 		}
-		return makeit[makeit.length - 1];
+		return target <= 0;
 	}
 }
