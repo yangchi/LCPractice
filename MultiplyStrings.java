@@ -12,14 +12,14 @@ public class Solution {
 				final_result.add(i + j + 1, final_result.get(i + j + 1) + curr / 10);
 			}
 		}
-		String result = "";
 		int index = final_result.size() - 1;
 		while(index >=0 && final_result.get(index) == 0)
 			index--;
 		if(index < 0)
 			return "0";
+		String result = "";
 		while(index >= 0) {
-			result.concat(new String(Character.toChars(final_result.get(index--))));
+			result += Integer.toString(final_result.get(index--));
 		}
 		return result;
 	}
