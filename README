@@ -11,6 +11,7 @@ Here I summarize some LeetCode problems in rather arbitrary order. Some of them 
 
 Sort the input array first. Then have on position fixed, and move the other pointers towards each other, from the fixed position and tail of array. Then advance the fixed position, and do the two-pointer search again.
 
+```
 	for fixed from 0 to n-1 {
 		head = fixed + 1
 		tail = n-1
@@ -23,7 +24,8 @@ Sort the input array first. Then have on position fixed, and move the other poin
 			else
 				add to result set		}
 	}
-	
+```
+
 Sorting is O(nlogn) of course. The outer loop runs n times during which the inner look runs O(n) times. So it's O(n^2).
 
 To pass the LeetCode large test cases, you may need some optimization in your code though.
@@ -40,10 +42,12 @@ This one is similar to 3Sum. Again, sort the numbers first. Then have one positi
 
 You can easily solve 4Sum with the 3Sum algorithm:
 
+```
 	for fixed in 0 to n - 1 {
 		newtarget = target - input[fixed]
 		3Sum(input, fixed + 1, end, newtarget)	}
-	
+```
+
 This is very straightforward. Complexity-wise, it's also straightforward: O(n^3).
 
 Here is an alternative I didn't try:
@@ -52,11 +56,13 @@ For any pair of two number, we can calculate their sum. Let's maintain a mapping
 
 Then for each sum, we look for *(target - sum)* in the map. A combination of pairs from both vectors will be a valid result for the 4Sum problem:
 
+```
 	for key in map.keys() {
 		if target - key is in map.keys() {
 			for pair1 in map[key] {
 				for pair2 in map[target - key] {
 					add {pair1, pair2} into the result set				}			}		}	}
+```
 
 But the time complexity of second part of this solution is very tricky. Suppose there are k such two-value sums, so there are k keys in the map. Without duplicate, there are at most n^2 pairs can be mapped from k keys. So on average, each key maps to a vector of n^2/k pairs of numbers.
 	
