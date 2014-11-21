@@ -131,3 +131,69 @@ Or of course you mean maintain the current max level seen so far. When you get a
 For BTLOT II:
 
 Just use a deque<vector> instead of vector<vector> during the process, and then copy it to a vector<vector> when you need to return. 
+
+Binary Tree Maximum Path Sum
+--------------------------------------------
+
+Again, recursive. But what parameters do you carry over all the recursive calls? I use two things. One is the maximum path sum seen so far. One is the maximum path value that has the current node, but doesn't go through it. We need this "no-through" value to update parent when we return from recursive calls on children nodes.
+
+Binary Tree Postorder Traversal
+-----------------------------------
+
+I confess. I used recursive. If you want to know how iterative works, check [this post on LeetCode](https://github.com/yangchi/LCPractice). If someone asks me this question in a interview, I probably will just walk out and thinking, man, I don't want to work here since I don't want to see this guy ever again in my life.. I mean, it's a valid problem, but in a job interview? What's the point..
+
+Binary Tree Preorder Traversal
+------------------------------
+
+Use a stack for iterative. It's very straightforward.
+
+Binary Tree Zigzag Level Order Traversal
+--------------------------------
+
+It's pretty much the same problem as BTLOT I and II. Just remember to check if your current level is even, and then reverse your vector.
+
+Candy
+--------
+
+It should be named "Hard Candy". I learned the following solution from somewhere else. Initially give each kid just one candy. Then you go through them one by one, increase number of candy to the number of candy belongs to left neighbor by 1, if the current kid has a higher rating than the left neighbor. By doing this, all the kids and their left neighbors satisfy the requested condition. Then you go through all the kids in reverse order, and if the current kids has a higher rating than the right neighbor, increase his/her candy to the number of candies of his/her right neighbor plus one, *if it's not already larger*. This makes all kids and their right neighbor satisfy the requested condition, if it's not already satisfied. And it won't break the left neighbor condition. 
+
+Climbing Stairs
+--------------------
+
+My first reaction was recursive. Then DP. Then Fibonacci. My code has one problem, the oneStep and twoStep variables should be interchanged. But it doesn't matter to the final result. Again, it's just Fibonacci.
+
+Clone Graph
+------------------
+
+DFS with a queue. Use a map to map between node in old graph and node in new graph.
+
+Combinations, Combination Sum and Combination SumII
+-----------------
+
+There is one type of problems that I'm really bad at: combination/permutation generation. It's clearly recursive. But if you have not practiced it over and over and over and over, you just simple make mistakes. Sigh..
+
+Letter Combinations Of A Phone Number
+--------------------------------------------------------
+
+Recursive with some small twist. My solution sucks for this type of problem, like I said before. There are way better solutions you can find online.. I feel dumb.
+
+Permutation
+----------------
+
+The same problem I have with Combinations: Not so hard to think, but I'm pretty bad at it. I used a map to track if a number has already been used.
+
+Next Permutation
+--------------------
+
+For these two, I used another approach I leaned instead of resorting to recursive. From one permutation to the next in lexicographical order, you just need find out where to "increase" a number. So search from right to left, until you find a position i that has a number smaller than it's right neighbor. Apparently everyone right to it must be in decreasing order. We need to swap it to some number to the right of it, and is larger than it, and is the rightmost one among all such numbers. So again, search from right to left, until we find a number that's larger than it. Swap them. Afterwards, all the numbers right to i are again in decreasing order. Reverse this section of number will give us the next lexicographical permutation.
+
+Permutations II
+----------------------
+
+We can use the above method to solve Permutation II as well since what we want are unique permutations. If we lose this condition, I don't think it will work.
+
+Permutation Sequence
+-----------------------------
+
+I like this one way better than the above ones regarding permutation. It's essentially a very simple mathematics problems: k = a_(n-1) * (n-1)! + a_(n-2) * (n-2)! + ... + a_(1) * 1 + a_(0) * 0.
+
