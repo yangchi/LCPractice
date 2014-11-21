@@ -185,7 +185,7 @@ The same problem I have with Combinations: Not so hard to think, but I'm pretty 
 Next Permutation
 --------------------
 
-For these two, I used another approach I leaned instead of resorting to recursive. From one permutation to the next in lexicographical order, you just need find out where to "increase" a number. So search from right to left, until you find a position i that has a number smaller than it's right neighbor. Apparently everyone right to it must be in decreasing order. We need to swap it to some number to the right of it, and is larger than it, and is the rightmost one among all such numbers. So again, search from right to left, until we find a number that's larger than it. Swap them. Afterwards, all the numbers right to i are again in decreasing order. Reverse this section of number will give us the next lexicographical permutation.
+For this one, I used another approach I leaned, instead of resorting to recursive. From one permutation to the next in lexicographical order, you just need find out where to "increase" a number. So search from right to left, until you find a position i that has a number smaller than it's right neighbor. Apparently everyone right to it must be in decreasing order. We need to swap it to some number to the right of it, and is larger than it, and is the rightmost one among all such numbers. So again, search from right to left, until we find a number that's larger than it. Swap them. Afterwards, all the numbers right to i are again in decreasing order. Reverse this section of number will give us the next lexicographical permutation.
 
 Permutations II
 ----------------------
