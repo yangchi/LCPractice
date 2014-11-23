@@ -197,3 +197,105 @@ Permutation Sequence
 
 I like this one way better than the above ones regarding permutation. It's essentially a very simple mathematics problems: k = a_(n-1) * (n-1)! + a_(n-2) * (n-2)! + ... + a_(1) * 1 + a_(0) * 0.
 
+Construct Binary Tree from Inorder and Postorder Traversal and Construct Binary Tree from Preorder and Inorder Traversal
+----------------------------
+
+Both problems look pretty straightforward to me as recursive problems. I didn't pass the large test cases though. Shame on me.. I will try iterative later..
+
+Container with Most Water
+-----------------------------------
+
+Two pointers to move towards each other. Each round you move the one that has a shorter (smaller?) height while updating the max area so far if needed. Return the max area when they meet each other.
+
+Convert Sorted Array to Binary Search Tree
+--------------------
+
+Recursive. Hey I passed this one. :)
+
+Convert Sorted List to Binary Search Tree
+---------------------------
+
+The idea is the same as the one above. But since we cannot random access a node in linked list, the implementation can be a bit awkward if you try to emulate the previous solution. There are better and smarter solutions you can find online. Mine sucks, though works..
+
+Copy List with Random Pointer
+-----------------------------------------
+
+Since I used 4 map and 4 loops to tackle this problem, I know my solution isn't the most efficient one space-wise, and is probably one of the worse ones among all the solutions that can pass the OJ. I have one map to map an old node to its position in the old list, one map to to do the opposite, one map to map the source position to destination position relation of the random pointers in the old list, then one map to map a position in the new list to the node.
+
+Turned out you just need one map to map old node the the new one. And then you can do a two step recursive operation to first build the next pointer, and then build the random pointer for current new node. The code will be like this:
+
+	listBuildFunction(ListNode *head, map) {
+		if map has head {
+			return map[head]		}
+		newnode = ListNode()
+		map[head] = newnode
+		newnode.next = listBuildFunction(head.next, map)
+		newnode.random = listBuildFunction(head.random, map)	}
+
+Must better than using 4 maps, right?
+
+The best solution solves this problem in-place without any freaking map: in one loop, keep inserting new node right after its corresponding old node; then in another loop to set up random pointers of new nodes; finally use another loop to separate new nodes out to form the new list.
+
+See, that's why we keep going back to LeetCode.
+
+Count and Say
+---------------------
+
+Pretty easy to solve. I used recursive and passed. But you don't have to as the iterative solution is also very easy
+
+Decode Ways
+------------------
+
+Dynamic programming at its simplest shape, but with some not-so-much-fun if/else and character tests. Or just convert strings to integer to write better if/else blocks and cleaner code..which I failed to do.
+
+Distinct Subsequence
+-----------------------------
+
+A much harder DP compared to the previous one. Two-dimensional. Just pay some attention to boundaries.
+
+Divide Two Integers
+-------------------------
+
+The most straightforward to emulate division without using division, is of course deduction. So you can subtract divisor from dividend each time. But this takes long time if the input happen to be something like INT_MAX and 1. Instead, increase the divisor to as close as the dividend as you can. Since you can't use multiplication either, bitwise shift is probably your best friend. This is a problem that isn't really hard, however very easy to get wrong.
+
+Edit Distance
+-----------------
+
+Another two-dimensional DP. This one is actually easier than Distinct Subsequence.
+
+Evaluate Reverse Polish Notation
+-----------------------------------------------
+
+I'm sure this one is either covered in your data structure class or homework. :)
+
+Find Minimum in Rotated Sorted Array I and II
+-----------------------------------
+
+First of all, linear solutions can pass both of them. Second, for II when duplicates is present in the array, linear is actually the optimal solution as binary search won't speed up. But for I, binary search will work.
+
+First Missing Positive
+----------------------------
+
+I used a set to record positive numbers in the array, and used another integer to record the maximum positive value in the array. Then loop through number from 1 to max to find the first missing one in the set.
+
+But there is a better solution. First of all, you need to realize the answer of the first missing positive has to be in [1, n+1]. If the array contains [1, n], then first missing positive number is n+1. If the array contains something else, then some number in [1, n] is missing.
+
+Once we know the answer is in [1, n+1], we can drop the set. Loop through the array to move each positive number to its "proper" position, i.e. make positive == array[positive - 1]. Then go though the array one more time to find the first missing positive, or return n+1 if no one is missing.
+
+Flatten Binary Tree to Linked List
+-----------------------------
+
+Recursive. I didn't try iterative. It should be pretty much the same code of the iterative inorder traversal.
+
+Gas Station
+---------------
+
+Greedy. Use another array to contain the difference between gas[i] and cost[i]. And append this array to itself. Then look for the first position that you can traverse n positions in the new array and maintain a positive running sum the whole time. One optimization you can think about is where to start your next traversal if you fail the current one.
+
+Generate Parentheses
+----------------------
+
+What did I say? I hate permutation and combination and this one.
+
+Recursive. The recursive function will contain current number of left and right parentheses, and the current string as parameters
+
