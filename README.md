@@ -299,3 +299,123 @@ What did I say? I hate permutation and combination and this one.
 
 Recursive. The recursive function will contain current number of left and right parentheses, and the current string as parameters
 
+
+Gray Code
+---------------
+
+I don't know how to better explain this except the code itself:
+
+	public class Solution {
+		public List<Integer> grayCode(int n) {
+			int current = 0;
+			List<Integer> result = new ArrayList<Integer>();
+			result.add(current);
+			int flip = 0;
+			while(flip < n) {
+				for(int i = result.size() - 1; i >= 0; i--) {
+					result.add(result.get(i) | (1 << flip));
+				}
+				flip++;
+			}
+			return result;
+		}
+	}
+
+
+Implement StrStr()
+-------------------------
+
+Very straightforward.
+
+Insert Interval
+------------------
+
+It's not hard to think of. Apparently you need to find out where to insert the new interval by comparing its start and end to starts and ends of existing ones. But coding this out can be awkward. So instead, just construct the result list online:
+
+	result = []
+	for interval in intervals:
+		if newInterval is to the left of interval:
+			result.append(interval)
+		elif newInterval is to the right of interval:
+			result.append(copy.copy(newInterval))
+			newInterval = interval
+		else:
+			newInterval.start = min(newInterval.start, interval.start)
+			newInterval.end = max(newInterval.end, interval.end)
+	result.append(newInterval)
+	
+Insertion Sort List
+------------------------
+
+Sometimes in my life, I open some code I wrote some time ago, and I ask myself, why, why do you do this (to yourself)?!?!
+
+Integer to Roman
+-----------------------
+
+I always wonder what to do if someone asks this question in a job interview, and neither of you actually know how to write a number in Roman..
+
+The cleanest solution I learned is from *Dive into Python 3*, and there is nothing really advanced about that solution: you build a map from integers to Roman first. Then just loop through this map in the order of larger to smaller to deduce integers from input while append your output string.
+
+You can't beat that.
+
+Roman to Integer
+-----------------------
+
+Build a map which is the reverse of the previous one. Now of course this time you need to check some Roman number combinations like "IV" and "XC".
+
+Again you can't beat that.
+
+Interleaving Strings
+-------------------------
+
+I used two-dimensional DP. But I think there is a one-dimensional solution you can find online. Anyhow, the two-dimensional version is rather intuitive: s3[0:ind3] is a interleave of s1[0:ind1] and s2[0:ind2] if s3[0:ind3 - 1] is a interleave of of s1[0:ind1 - 1] and s2[0:ind2] and s3[ind3] == s1[ind1], or s3[0:ind3 - 1] is a interleave of of s1[0:ind1] and s2[0:ind2 - 1] and s3[ind3] == s2[ind2]. Now that's too much words. Code is indeed rather clearer:
+ 
+	for(ind1 = 0; ind1 < s1.length() + 1; ind1++) {
+		for(ind2 = 0; ind2 < s2.length() + 1; ind2++) {
+			if(s1[ind1] == s3[ind1 + ind2]) {
+				interleave[ind1 + 1][ind2] = interleave[ind1 + 1][ind2] || interleave[ind1][ind2];
+			}
+			if(s2[ind2] == s3[ind1 + ind2]) {
+				interleave[ind1][ind2 + 1] = interleave[ind1][ind2 + 1] || interleave[ind1][ind2];
+			}
+		}
+	}
+
+I think I just realized how easy it is to write in one-dimensional.. :)
+
+Jump Game I and II
+----------------
+
+The first one is pretty easy, especially if you work your way back from the end of array:
+
+	public class Solution {
+		public boolean canJump(int[] A) {
+			int target = A.length - 1;
+			for(int index = A.length - 2; index >= 0; index--) {
+				if(A[index] + index >= target)
+					target = index;
+			}
+			return target <= 0;
+		}
+	}
+	
+For the second one, I worked my way forward from the beginning of the array. Maintain a {start, end} range of the current places one can be after a jump, and check if we can reach the end of array by jumping from any of point in the range:
+	
+	class Solution:
+		def jump(self, A):
+			if len(A) < 2:
+				return 0
+			start = 0
+			end = 0
+			count = 0
+			while end < len(A):
+				count += 1
+				current_max = 0
+				for i in range(start, end + 1):
+					if A[i] + i >= len(A) - 1:
+						return count
+					if A[i] + i > current_max:
+						current_max = A[i] + i
+				start = end + 1
+				end = current_max
+			return count
