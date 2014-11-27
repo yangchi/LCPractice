@@ -425,7 +425,7 @@ OK my solution sucks on every level. I will do this again..
 
 Now my sucky solution has two maps. One to map a key to a value, another one to map a key to its age. Apparently this will make every operation so expensive thanks to the key->age map. I end up updating the age of every key for both get and set.
 
-So this most straightforward solution will guarantee you to fail large test cases. A smarter data structure is required. So is the first solution slow? Because our data structure contains more information than what we really need. We don't need ages, but just the ordered. So instead of using a key->age map, we can actually just maintain a list to keep record of this order. If one ket gets used, we move the corresponding node to the beginning, and when we need to add another node into the list but the list already reaches the capacity, we drop the last one.
+So this most straightforward solution will guarantee you to fail large test cases. A smarter data structure is required. Why is the first solution slow? Because our data structure contains more information than what we really need. We don't need ages, but just the ordered. So instead of using a key->age map, we can actually just maintain a list to keep record of this order. If one ket gets used, we move the corresponding node to the beginning, and when we need to add another node into the list but the list already reaches the capacity, we drop the last one.
 
 Now the expensive operation becomes the node lookup. Instead of doing a regular linear lookup, however, we use another map to map a key to its corresponding node in the list. Now even the node lookup is constant.
 
