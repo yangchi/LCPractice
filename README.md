@@ -433,3 +433,11 @@ Alright, I need to code this out... And I just did, and i just updated my github
 
 (This makes me want write about another two data structures I recently learned. I will do this when i have the time.)
 
+Largest Rectangle in Histogram
+-------------------------------------------
+
+I admit this is too hard for me. So I learned the optimal solution from [here](http://www.geeksforgeeks.org/largest-rectangle-under-histogram/). The time complexity is linear. There is also a divide-and-conquer solution that takes O(n logn). And of course there is always the naivest one you can resort to, which takes O(n^2).
+
+Now I'm the type of people who are not able to come up with the linear solution myself. And I know I'm not the only one. I think our club isn't a small one. Now imagine someone in this club, for example, me, walks into a job interview, and is given the problem, and the interview expects the poor interviewee to come up with the linear solution. He/she'd be doomed. I'd be doomed. And I know I will walk out from the interview, thinking, f\*, I'm doomed; and f\*, it ain't fair to decide if I can fulfill this position by asking me this particular problem.
+
+It just isn't so freaking fair. But what can you do... sigh..
