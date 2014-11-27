@@ -1,58 +1,103 @@
-class LRUCache{
-    public:
-        int cap;
-        map<int, int> keyvalue;
-        map<int, int> keyage;
+#include <map>
+#include <iostream>
 
-        LRUCache(int capacity) {
-            cap = capacity;
+using namespace std;
+
+struct DoublyLinkedListNode {
+    DoublyLinkedListNode *prev, *next;
+    int key;
+    int value;
+    DoublyLinkedListNode(int key, int value)
+        : key(key), value(value), prev(NULL), next(NULL)
+    {}
+};
+
+class LRUCache{
+    private:
+        int capacity;
+        DoublyLinkedListNode *list, *tail;
+        map<int, DoublyLinkedListNode *> keynode_mapper;
+
+    public:
+        LRUCache(int capacity)
+            : capacity(capacity)
+        {
+            list = NULL;
+            tail = NULL;
+        }
+
+        void moveToFront(DoublyLinkedListNode *node) {
+            if (node == list) {
+                return;
+            }
+            node->prev->next = node->next;
+            if (node->next)
+                node->next->prev = node->prev;
+            if(tail == node) {
+                tail = node->prev;
+            }
+            node->prev = NULL;
+            list->prev = node;
+            node->next = list;
+            list = node;
         }
 
         int get(int key) {
-            auto iter = keyvalue.find(key);
-            int return_value;
-            if(iter == keyvalue.end())
+            if(keynode_mapper.find(key) != keynode_mapper.end()) {
+                moveToFront(keynode_mapper.find(key)->second);
+                return keynode_mapper[key]->value;
+            } else {
                 return -1;
-            for(iter = keyvalue.begin(); iter != keyvalue.end(); iter++) {
-                if (iter->first != key)
-                    keyage[key]++;
-                else
-                    return_value  = iter->second;
             }
-            return return_value;
         }
 
         void set(int key, int value) {
-            if(keyvalue.size() < cap) {
-                keyvalue[key] = value;
-                keyage[key] = keyage.find(key) == keyage.end() ? 0 : keyage[key] + 1;
+            if (capacity <= 0) {
+                return;
+            }
+            if(get(key) != -1) {
+                keynode_mapper[key]->value = value;
             } else {
-                auto iter = keyvalue.find(key);
-                if (iter != keyvalue.end()) {
-                    keyvalue[key] = value;
+                DoublyLinkedListNode *newnode = new DoublyLinkedListNode(key, value);
+                if (!list) {
+                    list = newnode;
+                    tail = newnode;
+                } else if (list == tail) {
+                    if (capacity > 1) {
+                        list->prev = newnode;
+                        newnode->next = list;
+                        list = newnode;
+                    } else {
+                        keynode_mapper.erase(list->key);
+                        delete list;
+                        list = newnode;
+                        tail = newnode;
+                    }
                 } else {
-                    int old_key = oldest();
-                    keyvalue.erase(old_key);
-                    keyage.erase(old_key);
-                    keyvalue[key] = value;
+                    if (keynode_mapper.size() == capacity) {
+                        int lastKey = tail->key;
+                        keynode_mapper.erase(lastKey);
+                        DoublyLinkedListNode *newLast = tail->prev;
+                        if (newLast)
+                            newLast->next = NULL;
+                        delete tail;
+                        tail = newLast;
+                    }
+                    list->prev = newnode;
+                    newnode->next = list;
+                    list = newnode;
                 }
-                for(iter = keyage.begin(); iter != keyage.end(); iter++) {
-                    if(iter->first != key)
-                        keyage[iter->first]++;
-                }
+                keynode_mapper[key] = newnode;
             }
-        }
-
-        int oldest() {
-            int age = 0;
-            int oldkey = -1;
-            map<int, int>::iterator iter;
-            for(iter = keyage.begin(); iter != keyage.end(); iter++) {
-                if (iter->second > age) {
-                    age = iter->second;
-                    oldkey = iter->first;
-                }
-            }
-            return oldkey;
         }
 };
+
+int main()
+{
+    LRUCache sol(1);
+    sol.set(2, 1);
+    cout << sol.get(2) << endl;
+    sol.set(3, 2);
+    cout << sol.get(2) << endl;
+    cout << sol.get(3) << endl;
+}
