@@ -441,3 +441,18 @@ I admit this is too hard for me. So I learned the optimal solution from [here](h
 Now I'm the type of people who are not able to come up with the linear solution myself. And I know I'm not the only one. I think our club isn't a small one. Now imagine someone in this club, for example, me, walks into a job interview, and is given the problem, and the interview expects the poor interviewee to come up with the linear solution. He/she'd be doomed. I'd be doomed. And I know I will walk out from the interview, thinking, f\*, I'm doomed; and f\*, it ain't fair to decide if I can fulfill this position by asking me this particular problem.
 
 It just isn't so freaking fair. But what can you do... sigh..
+
+Length of Last Word
+---------------------------
+
+Very easy and straightforward.
+
+Letter Combinations of a Phone Number
+---------------------------------------------------
+
+This one is actually slightly easier compared to all the other combination/permutation problems as it's really just a permutation of a few candidates at each position.
+
+Linked List Cycle I and II
+----------------------------------
+
+I'm too wordy on this one... so check [this](http://yangchi.me/leetcode-problems-in-a-few-words-5.html) out.
