@@ -456,3 +456,64 @@ Linked List Cycle I and II
 ----------------------------------
 
 I'm too wordy on this one... so check [this](http://yangchi.me/leetcode-problems-in-a-few-words-5.html) out.
+
+Longest Common Prefix
+---------------------------
+
+It turns out to be very easy. If you think too much on this one, then you simply think too much.
+
+Longest Consecutive Sequence
+-----------------------------------------
+
+Without the O(n) restriction, it's pretty straightforward. First, you sort the array. Then, you go over it to find the longest sequence. The total time is O(nlogn).
+
+But with the O(n) restriction, it takes some thinking. A very natural choice would be feed the input array into a set. During this process, you can find out minimal and maximal values in the array. From there, you test every value in the range [minimal, maximal] consecutively in the array. And you will find the longest sequence. But if the data from your input turns out to be very scatter in the [minimal, maximal] range, this actually goes beyond O(n).
+
+The solution I learned, actually takes each number out of the set, and try to find its left and right neighbors in the natural number set until there is a gap. The key is, you need to keep eliminating those numbers you test and exist in the set. By doing this, you never go beyond O(n).
+
+So the lessons learned here is, eliminating on the fly. This is one typical method you should think of when dealing with linear complexity.
+
+Longest Palindromic Substring
+-----------------------------------------
+
+This is another typical 2-dimensional Dynamic Programming problem. Somehow I have an impression that most DP problems on LC are 2-dimensional. But I could be wrong.
+
+Anyway, once you know it's a 2-D DP, it should be pretty straightforward.
+
+Longest Valid Parentheses
+-------------------------------------
+
+Did I just say I have the impression that most DP problems on LC are 2-D? Another impression I have is 1-D DP on LC are usually a bit harder than 2-D DP. In my opinion, Longest Valid parentheses is harder than Longest Palindromic Substring. The former is 1-D while the latter being a 2-D.
+
+The hard thing about this problem is that the subsolution depends on not just the solution of the sub-problem two positions before, but also the sub-problem a few positions before... Well I guess you won't understand this sentence.. I guess the best way is to take a look at the code.
+
+	vector<int> dp(s.size(), 0);
+      for(int i = 0; i < s.size(); i++) {
+          if(s[i] == '(') { // no need to update
+              continue;
+          } else {
+              if(i == 0) { //no need to update
+                  continue;
+              } else {
+                  if(s[i - 1] == '(') { //s_i is ) and s_i-1 is (
+                      dp[i] = 2;
+                      if(i > 1) {
+                          dp[i] += dp[i - 2];
+                      }
+                  } else { //s_i is ) and s_i-1 is also ), need to check dp[i - dp[i-1] - 1]  
+                      if(dp[i - 1] > 0) {
+                          if(i - dp[i - 1] - 1 >= 0 && s[i - dp[i - 1] - 1] == '(') {
+                              dp[i] = dp[i - 1] + 2;
+                              if(i - dp[i-1] - 1 > 0) {
+                                  dp[i] += dp[i - dp[i - 1] - 2];
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      
+Now let me try to explain in human words again. The dp vector is the number of valid parentheses of the substring from the beginning of s to the current position. So if the current position, say i, is a "(", the the substring ends here cannot be a valid parentheses substring. If the s[i] is a ")", however, then you need to check the one before it s[i - 1]. If it's a "(", then the dp[i] = dp[i - 2] + 2. If s[i - 1] is a ")", then s[i - 1] may or may not be part of a valid parenthese substring. Thus you need to check s[i - dp[i - 1] - 1] based on whether dp[i - 1] is greater than 0.
+
+I guess code is a lot clearer than human languages.
