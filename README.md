@@ -517,3 +517,35 @@ The hard thing about this problem is that the subsolution depends on not just th
 Now let me try to explain in human words again. The dp vector is the number of valid parentheses of the substring from the beginning of s to the current position. So if the current position, say i, is a "(", the the substring ends here cannot be a valid parentheses substring. If the s[i] is a ")", however, then you need to check the one before it s[i - 1]. If it's a "(", then the dp[i] = dp[i - 2] + 2. If s[i - 1] is a ")", then s[i - 1] may or may not be part of a valid parenthese substring. Thus you need to check s[i - dp[i - 1] - 1] based on whether dp[i - 1] is greater than 0.
 
 I guess code is a lot clearer than human languages.
+
+Longest Substring Without Repeating Characters
+----------------------------------
+
+Maintain a running map<char, index>.
+
+Max Points on a Line
+----------------------------
+
+It's not a hard algorithm problem. But I didn't get the implementation right due to the inaccuracy of floating point numbers. I ran into the problem that given one point, and two points far from it but close to each other, apparently they aren't the same line on paper, but they will be the same line in a computer since you will get the same slope thanks to the floating point problem.
+
+And I haven't had the time to work this out..
+
+Maximal Rectangle
+---------------------------
+
+Remember I said that Largest Rectangle in Histogram is something too hard to me? Turned out this one is even harder, since LRIH is just a sub-problem of Maximal Rectangle.
+
+To solve this problem, you need another matrix where each cell is the height of a vector of a series of 1s with the current cell being the bottom. For example, if you have the input matrix as left one below, the the new matrix that contains all the height information will look like the right one:
+
+1 0 1 0 1 0 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 0 1 0 1 0 1
+
+0 1 1 0 0 1 1  &nbsp;&nbsp;&nbsp;&nbsp; =====>&nbsp;&nbsp;&nbsp;&nbsp;   0 1 2 0 0 1 2
+
+1 1 0 0 1 1 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 2 0 0 1 2 3
+
+Once you have this matrix built, on each row, you do the LRIH while keep updating the current maximal rectangle area.
+
+Maximum Depth of Binary Tree
+-----------------------------------
+
+Probably the easiest recursive problem on LC?
