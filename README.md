@@ -549,3 +549,63 @@ Maximum Depth of Binary Tree
 -----------------------------------
 
 Probably the easiest recursive problem on LC?
+
+Maximum Product Subarray
+------------------------------------
+
+Apparently the only tricky part is that some numbers in the array are negative. And the solution is besides the running maximal till each element in the array, also mention the running minimal.
+
+Maximum Subarray
+--------------------------
+
+Another "Maintain some running stats" problem. Much easier than the previous one.
+
+Merge Intervals
+---------------------
+
+The funny thing about this one is, to sort intervals, I actually write a CompareInterval function to pass in to the sort() function of C++ standard library. :)
+
+Other than that, there isn't so much fun. Make a new interval object, keep changing the end value when move along the input vector until a new interval needs to make. Push current one into result vec, and repeat the process.
+
+Merge K Sorted Lists
+------------------------------
+
+Here are 3 approaches to this problem:
+
+- For each list, maintain a pointer to the current position. And go over all the lists over and over to fill up the result list.
+- Merge sort: Given a function to merge two sorted lists into one, first recursively solve each halve of the original list of lists; then merge them with the function.
+- Push all elements into a heap. Then keep popping the heap while building the result list
+
+I used the merge sort. But the last one is equally elegant. Complexity-wise, both of the last two are O(nlogn), while the first one is O(nm) where m is the number of lists.
+
+Merge Sorted Array
+---------------------------
+
+The straightforward solution, i.e., move your way forward, which I used, can actually pass the OJ. But the better solution is actually the other way around - move your way backward.
+
+Merge Two Sorted Lists
+-----------------------------
+
+What's the fun of this?
+
+Minimum Depth of Binary Tree
+------------------------------
+
+As easy as its maximum counterpart.
+
+Minimum Path Sum
+--------------------------
+
+Straightforward DP
+
+Minimum Window Substring
+---------------------------------
+
+Since there could be repeating characters in T, solution from Longest Substring Without Repeating Characters won't work. Instead, maintain two maps: one to map each character to the number of its appearance in T, one to map each characters to how many time it has been appeared in current window. The final implementation may takes some careful thinking, but won't be too hard from here.
+
+This is one of those problem I really like. It tests some algorithm and data structure fundamentals. And it also tests coding as the implementation isn't so straightforward once you have the idea. And you don't have to invent some algorithm that previously takes human society tens of years to invent.
+
+Multiply Strings
+---------------------
+
+For this one, I am not able to pass large cases. I largely "simulated" how multiplication is done on paper. I guess I will take a closer look at it later.
