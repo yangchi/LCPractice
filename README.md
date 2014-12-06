@@ -609,3 +609,16 @@ Multiply Strings
 ---------------------
 
 For this one, I am not able to pass large cases. I largely "simulated" how multiplication is done on paper. I guess I will take a closer look at it later.
+
+N-Queens I and II
+-------------------------
+
+I am very very bad at writing recursive code. *Very bad. Very very bad.*
+
+There are some very elegant way to represent the board and to check the eligibility of a move, which you can find online. Go read them. It's just amazing how good coders code.
+
+Palindrome Number
+----------------------------
+
+My current solution passed OJ but has a risk. It reverses the number. But this may lead to an overflow. So what you can do is to take half of the digits, and compare it with the other half. I should try that.
+
