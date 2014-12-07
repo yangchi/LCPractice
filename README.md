@@ -622,3 +622,95 @@ Palindrome Number
 
 My current solution passed OJ but has a risk. It reverses the number. But this may lead to an overflow. So what you can do is to take half of the digits, and compare it with the other half. I should try that.
 
+Palindrome Partition I and II
+--------------------------------------
+
+The first one is a recursive and the second one is a DP. Here is something to think about if you get a Time Limit Exceeds error from LeetCode: you need to have a quick way to check if a substring is a palindrome. So instead of calling a function to determine if a string is a palindrome, build a matrix that hold the results. So you won't repeat some computation over and over.
+
+Partition List
+------------------
+
+Straightforward. I think most linked-list related problems are pretty easy as long as you don't mess up the linked-list operations.
+
+Pascal's Triangle I and II
+----------------------------------
+
+Both of these two a pretty easy. For the second one I use two arrays, one for the current, one for the previous row. But apparently you can do this with just one row. The update can be in-place.
+
+Path Sum I and II
+-------------------------
+
+Both are recursive.
+
+Plus One
+-------------
+
+It's a bit strange that such a problem appears on LC.
+
+Populating Next Right Pointers in Each Node I and II
+--------------------------------------
+
+In my case, I used the same solution for both I and II since I is just a special case of II. I used DFS, and always pass on the current node's next pointer when I walk my way down to leaves, since the current node's children's next pointer may need to point to the children nodes of current's next node. Of course, for I, since it's a perfect binary tree, this isn't really necessary.
+
+Pow
+------
+
+I guess this algorithm is very classic. Again I don't know how to better explain this other than the code itself:
+
+	public class Solution {
+		public double pow(double x, int n) {
+			if(n == 0)
+				return 1;
+			if (n < 0) {
+				n = -n;
+				x = 1/x;
+			}
+			double result = 1;
+			double temp = x;
+			while(n > 0) {
+				int curr = 1 & n;
+				if(curr == 1)
+					result *= temp;
+				temp *= temp;
+				n >>= 1;
+			}
+			return result;
+		}
+	}
+	
+Recover Binary Search Tree
+--------------------------------------
+
+As the LeetCode itself states, O(n) space solution is straightforward. Do an in-order traversal and store every value in an array. By doing this you can easily find out which two values are out of order.
+
+To limit your solution to constant space, you need to keep record of the previous node of your in-order traversal. Meanwhile, also keep two pointers of the possible swapped nodes. Note that when you find the first out of order node in this algorithm, it's parent may or may not be the one it swapped with. It could just be the lowest common ancestor of those two swapped nodes. So you will need to keep searching for the second. Only when you cannot find another one, you know the previous one's parent is indeed the other swapped node.
+
+Regular Expression Matching
+----------------------------
+
+Recursive with some careful thinking. :) The funny thing is if you read the discussion board of this problem on LC, it surprises you how many people have no know-how of regular expression.
+
+But isn't automata one of the most interesting topics in computer science?
+
+Wildcard Matching
+-------------------------
+
+I think this one is a bit harder than the regex matching, although LC marks both of them as "Hard". Recursive isn't going to help in with this problem. Instead, you need to maintain some states: whether the current part of S is being covered by a "*" in P; and, what section is covered exactly; and, where is the next position in S to examine.
+
+Remove Duplicates from Sorted Array I and II
+-----------------------
+
+For both of these two, you don't really have to remove anything, as all you want is just the length of the new array. For the second one, maintain a map. Both are easy.
+
+Remove Duplicates from Sorted List I and II
+------------------------
+
+To me, it seems like both are just some careful linked-list operations, right? The second requires some especially careful handling of the list.
+
+And how come I didn't realize recursive could have helped? Sigh. I guess I will be a mediocre programmer for the rest of my life. :'(
+
+Remove elements
+------------------------
+
+Two pointer and swap.
+
