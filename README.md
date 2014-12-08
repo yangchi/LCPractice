@@ -1073,3 +1073,16 @@ Binary search:
 			return (int)result;
 		}
 	}
+
+Min Stack
+--------------
+
+Use another stack to hold running minimal up to each point. I think this is the algorithm everyone else uses. But somehow they all pass OJ, and I get a TLE. This world is NOT fair.
+
+Median of Two Sorted Arrays
+-----------------------------------
+
+I have several TLEs in this repo. Most can pass OJ. And here, this is the only one that got a Runtime error on LC. I have no idea why.. LC has been giving less and less error messages these days.
+
+And my solution is learned from somewhere else anyway, so I guess I will save my words on this. It's a really hard problem. That's all I can say at this point.
+
