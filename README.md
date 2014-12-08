@@ -811,7 +811,7 @@ The first one is a trick question. What if you do not have the linear complexity
 
 So how do you solve this with linear complexity and no extra space? XOR my friend. Becuase A XOR A = 0 and A XOR 0 = A. So you XOR all the numbers together, the result will be the number that appears only once.
 
-How about the second one? This one is even harder. The trick is, if you take the k-th digit out of the binary representation of the input numbers, add them together, and module the result to 3, you will have the k-th digit of the only single number. Why, because all other digits show up 3 times, so no matter whether it's an one or zero, you add it 3 times, it has no effect on the module operation. Here is the code:
+How about the second one? This one is even harder. The trick is, if you take the k-th digit out of the binary representation of the input numbers, add them together, and modulo the result to 3, you will have the k-th digit of the only single number. Why, because all other digits show up 3 times, so no matter whether it's an one or zero, you add it 3 times, it has no effect on the modulo operation. Here is the code:
 
 	public class Solution {
 		public int singleNumber(int[] A) {
@@ -973,3 +973,103 @@ Apparently recursive works pretty elegantly for this problem. But with recursive
 One way to optimize it a bit, is to cache all the intermediate results.
 
 But apparently a better way would be DP. Instead of work you way top-down, go bottom-up. I haven't written this one yet. I will do this later. I will.
+
+Unique Binary Search Trees I
+--------------------------
+
+Given a BST consist of numbers from 1 to n, how many way to split them into two sub-BSTs? The answer is n, as each of those n numbers can be the root.
+
+Suppose we pick k as the root. There are k - 1 nodes on the left, and n - k nodes on the right. How many unique BSTs can we have with k as the root? Suppose we denote this number as Uniq() function. Then answer is Uniq(k - 1) * Uniq(n - k).
+
+So Uniq(n) = Uniq(0) * Uniq(n - 1) + Uniq(1) * Uniq(n - 2) + ... + Uniq(n - 1) * Uniq(0)
+
+Unique Binary Search Trees II
+--------------------------
+
+Recursive. To speed up a bit, you can use a map to cache some intermediate results that's already calculated.
+
+Unique Paths I and II
+-------------------
+
+The easiest DPs on LC
+
+Valid Number
+-------------------
+
+It's more boring and more difficult and more pointless than the atoi problem on LC. Algorithm wise, there is nothing, absolutely nothing to talk about. But it's very very hard to code it right.
+
+Honestly this may be a lot closer to "real world" day-to-day job type of programming. But then of course, during your real job, there usually isn't time pressure, and you can always rely on good UT. But when you have to solve this on a white board, it's just gonna be very very hard to get it right.
+
+Valid Palindrome
+---------------------
+
+This is probably the simplest palindrome related problem on LC. Very straightforward.
+
+Valid Parentheses
+-----------------------
+
+Typical stack. I used a simple map to check if two parentheses pair with each other.
+
+Validate Binary Search Tree
+----------------------------------
+
+I almost fail this problem in an interview. It's actually very easy. But it's also very easy to get wrong. Just because both children of a node are BST doesn't mean the tree is a BST. You have to make sure the maximal value of left tree is smaller than the root which is smaller than minimal value of the right tree.
+
+Word Break
+---------------
+
+DP. And it's actually one-dimension. Use boolean array b[] to mark if substring s[0, i] is in dictionary, or if it can be break up into words from the dictionary, i.e.,
+
+	b[i] = true if s[0, i] is in dict, or if b[j] = true and s[j, i] is in the dictionary for any j < i
+	
+Word Break II
+-----------------
+
+DP. Pretty much the same as Word Break I, except now you have to keep record all the valid sub-sentences up to each point.
+
+Word Ladder I and II
+------------------
+
+For Word Ladder I, I used BFS since we need to return the shortest transformation. This one is actually very easy to pass on LC. I don't pre-calculated anything, just expand the graph on the go. It still passes the OJ.
+
+But for II, I got TLE and MLE with both BFS and DFS. I even pre-calculated all the possible next-hops of each word in the dictionary. Still won't pass OJ. But I admit my code was so smart in many aspects. It was long time ago. I should re-tackle this problem.
+
+Word Search
+-------------------
+
+I used recursive,  or DFS, no matter how you name it. I don't think it's the best solution though.
+
+ZigZag Conversion
+--------------------------
+
+Use an array to hold characters of each row after the conversion. Then use the modulo operation to assign character to the right array. And build your result string from there.
+
+Anagrams
+---------------
+
+Sort and hash table.
+
+Sort List
+----------
+
+Merge sort.
+
+Sqrt
+-----
+
+Binary search:
+
+	public class Solution {
+		public int sqrt(int x) {
+			long result = 0;
+			long bit = 1 << 16;
+			while(bit > 0) {
+				result |= bit;
+				if(result * result > x) {
+					result ^= bit;
+				}
+				bit >>= 1;
+			}
+			return (int)result;
+		}
+	}
