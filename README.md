@@ -714,3 +714,262 @@ Remove elements
 
 Two pointer and swap.
 
+Remove Nth Node From End of List
+-------------------------
+
+Maybe the most classic two pointers problem?
+
+Reorder List
+-----------------
+
+Find the second half of the list. Reverse it. And tangle the two halves together.
+
+Restore IP Addresses
+---------------------------
+
+I used recursive algorithm. But it seems from the discussion board that simply testing every possible splitting of the string is a good solution as well.
+
+Reverse Integer
+------------------
+
+Don't forget to check if it's negative integer.
+
+Reverse Linked List II
+---------------------
+
+Where is Reverse Linked List I?
+
+Reverse Nodes in K-Group
+------------------------------------
+
+For elegancy, go for recursive. For fun, go for iterative. Or if you are as dumb as me, I guess you'd just go for iterative... :'(
+
+Reverse Words in a String
+---------------------------------
+
+I don't see the point of this problem. My Python submission literally just splits the input, reverse the resulted list, and join the elements in the list together to form a new string. What's the point?
+
+Rotate Image
+-----------------
+
+Given the matrix[i, j] that sits in the upper-left quarter of this matrix, where will this number move to after the rotate? Somewhere in the upper-right quarter. Then how about this upper-right quarter number? It goes to somewhere lower-right quarter. And the lower-right quarter number goes to lower-left quarter. As long as you can figure out those 3 coordinators, you are good to go.
+
+Same Tree
+----------------
+
+Recursive
+
+Scramble String
+----------------------
+
+This is a 3-D DP. Is there a 2-D DP solution?
+
+For 3-D:
+
+Use f[i][j][k] to represent whether s1[i, i + k] and s2[j, j + k] are scrambles of each other. Then:
+
+	f[i][j][k] = f[i][j][k] ||(f[i][j][p] && f[i + p][j + p][k - p] || f[i][j + k - p][p] && f[i + p][j][k - p]) for all p in [1, k).
+
+Search a 2D Matrix
+---------------------------
+
+Binary search
+
+Search for a Range
+-----------------------
+
+Binary Search
+
+Search in Rotated Sorted Array I and II
+----------------------------------
+
+For the first one, binary search can help. But for II, linear is actually the best you can get. Because when duplicates are present in the input, you can even decide where the rotate point is by comparing the middle point to start and end.
+
+Search Insert Position
+-----------------------------
+
+Binary search
+
+Set Matrix Zeros
+------------------------
+
+I used extra spaces for this one, specifically O(m + n) spaces to keep record which rows and columns need to be set to zero.
+
+To limit yourself to only constant space, the most naive solution requires you to set every element on same row and column to a special value if you run into a zero. For example, this special value can be INT_MIN or INT_MAX. But if the matrix itself is large enough to hold every possible value in the range of 32-bit integer, this solution will be out of luck.
+
+A better way is to mark the first element of the row and column to zero once you run into a zero, and use to extra boolean values to keep record whether the original first row and first column in the input matrix have zero. Then traversal the matrix again to set zeros properly.
+
+Simplify Path
+-----------------
+
+Split the string by "/". Then use a stack to hold substrings that passed in. If it's a "..", pop the top element in stack. If it's a ".", do nothing. Finally after traverse the string, join everything in the stack by "/".
+
+Single Number I and II
+------------------------------
+
+The first one is a trick question. What if you do not have the linear complexity restriction? You can sort your input, and linearly search for the only element that does not appear once. What if you do not have the space restriction? You can use a map to record how many times an element has appeared in the array. But with the restrictions, neither algorithm would work.
+
+So how do you solve this with linear complexity and no extra space? XOR my friend. Becuase A XOR A = 0 and A XOR 0 = A. So you XOR all the numbers together, the result will be the number that appears only once.
+
+How about the second one? This one is even harder. The trick is, if you take the k-th digit out of the binary representation of the input numbers, add them together, and module the result to 3, you will have the k-th digit of the only single number. Why, because all other digits show up 3 times, so no matter whether it's an one or zero, you add it 3 times, it has no effect on the module operation. Here is the code:
+
+	public class Solution {
+		public int singleNumber(int[] A) {
+			int result[] = new int[32];
+			for (int i = 0; i < A.length; i++) {
+				for(int j = 0; j < 32; j++) {
+					result[j] += takeNthBit(A[i], j);
+				}
+			}
+			int result_number = 0;
+			for (int i = 0; i < 32; i++) {
+				result[i] %= 3;
+				result_number |= result[i] << i;
+			}
+			return result_number;
+		}
+
+		public int takeNthBit(int input, int n) {
+			int temp = 1;
+			temp = temp << n;
+			return (input & temp) >> n;
+		}
+	}
+	
+Sort Colors
+-----------------
+
+I used the count sort algorithm. There is a very smart algorithm that only requires one pass and constant space. You can find it online. It does something like this:
+
+	int i=-1, j=-1, k=-1;
+	for(int p = 0; p < A.length; p++) {
+		if(A[p] == 0) {
+			A[++k]=2;
+			A[++j]=1;
+			A[++i]=0;
+       	}
+       	else if (A[p] == 1) {
+       		A[++k]=2;
+       		A[++j]=1;
+       	}
+       	else if (A[p] == 2) {
+       		A[++k]=2;
+       	}
+    }
+       
+I won't even try to explain this in human langauges. The cold tells everything. It's just smart.
+
+Spiral Matrix I and II
+---------------------------
+
+It's pretty straightforward once you realize all you need is just to differentiate there are 4 directions you are moving spirally (is "spirally" a word?). For the second one, it helps to maintain the current boundaries on the 4 edges so you know when to turn directions.
+
+String to Integer (atoi)
+---------------------------
+
+If you start to pour all your algorithmic thinking, you are wrong. There is nothing specially hard algorithmic wise. But this problem may be one of the hardest problems on LC as there are too many things to consider. The number could be negative. The number could have fractions. And there are some magical numbers in my code that I don't remember why they are there.. But I'm sure it has everything to do with the 32-bit integer range.
+
+Subsets I and II
+----------------------
+
+For I, loop through all the numbers in the input. In each loop, you fetch every vector that's already in the result vector of vector, and push the number in. And then push the vector into the result vector:
+
+	for(auto elem: S) {
+		int currentsize = results.size();
+		for(int i = 0; i < currentsize; i++) {
+			vector<int> temp(results[i]);
+			temp.push_back(elem);
+			results.push_back(temp);
+		}
+	}
+	
+Of course there is also a recursive solution for this. But the solution that got everyone's attention is bit manipulation, which I don't particularly like. Why? Because when we write code, we don't write code to computers, but to other humans.
+
+For the second one, I simply "flush" the result of the Subsets I into a set, and the "flush" them to a vector again.
+
+Substring with Concatenation of All Words
+---------------------------------------------------
+
+I got a TLE on this one. This is the algorithm I used:
+
+Maintain a map<string, int> to check how many of each string in L that we will need, and another map<string, int> to check how many of each string in L we already have in the current substring in S. As we work our way from beginning to end of the input string S, update the second map and push the index of the current substring to result if we have all we need.
+
+Is there a better solution than this? Or is it just my implemenetation?
+
+Sudoku Solver
+--------------------
+
+Recursive
+
+Valid Sudoku
+------------------
+
+I used lots of extra space for this problem. Essentially, you just want to check if every row is valid, if every column is valid, and if every 3-by-3 square is valid. So use a list for each row, each column and each square, and fill numbers in by traversal the matrix. And then check if those lists are valid.
+
+Sum Root to Leaf Numbers
+---------------------------------
+
+Recursive. But there are two ways to solve it recursively. One is to use the recursive calls on the children nodes to get a list of numbers represent as strings, and attach the root number to every one of the strings and return the new list. Another way is to pass in the current sum to the recursive call, and at each level, multiply this number by 10, or in code:
+
+	void helper(TreeNode * root, int * current) {
+        if(!root){
+            //*current = 0;
+            return;
+        }
+        *current = *current * 10 + root->val;
+        int left = *current, right = *current;
+        if(root->left)
+            helper(root->left, &left);
+        else
+            left = 0;
+        if(root->right)
+            helper(root->right, &right);
+        else
+            right = 0;
+        if(left != 0 || right != 0)
+            *current = left + right;
+    }
+
+Either way can work.
+
+Surrounded Regions
+---------------------------
+
+In short, this is a DFS problem. Specifically, walk around the borders of the matrix. Do a DFS when run into a "O". And in this DFS change all encountered "O" to "K". After this, traverse the matrix to change all remaining "O" to "X". And traverse the matrix again to change all the "K" to "O".
+
+Swap Nodes in Pairs
+---------------------------
+
+Good fundamental linked-list problem.
+
+Symmetric Tree
+--------------------
+
+Recursive with a bit twist:
+
+	isSymmetricRecur(tree1->left, tree2->right) && isSymmetricRecur(tree1->right, tree2->left);
+	
+Text Justification
+----------------------
+
+Finally, letter "T". And I'm getting really really tired.
+
+Straightforward, troublesome, and not so interesting.
+
+Trapping Rain Water
+---------------------------
+
+The water that a spot can hold, if the following value:
+
+	water[i] = height[min(max(heights[1, i]), max(height[i, len(heights)])] - height[i]
+	
+In other words, the difference between the minimal of the max height on the right and max height on the left, and the height of the current spot. I guess English works worse than the equation above..
+
+Triangle
+------------
+
+Apparently recursive works pretty elegantly for this problem. But with recursive the space complexity isn't O(n).
+
+One way to optimize it a bit, is to cache all the intermediate results.
+
+But apparently a better way would be DP. Instead of work you way top-down, go bottom-up. I haven't written this one yet. I will do this later. I will.
