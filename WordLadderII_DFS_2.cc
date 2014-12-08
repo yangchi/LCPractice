@@ -11,15 +11,6 @@ class Solution {
             build_next_hops(nexthops, dict);
             recurFindLadder(start, end, dict, nexthops, path, results, min);
             return results;
-            /*
-            vector<vector<string>> refined;
-            for(auto result: results)
-            {
-                if(result.size() == min)
-                    refined.push_back(result);
-            }
-            return refined;
-            */
         }
 
         void recurFindLadder(string start, string end, unordered_set<string> & dict, map<string, unordered_set<string>> & nhmap, vector<string> & path, vector<vector<string>> results, int & min)

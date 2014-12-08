@@ -32,11 +32,9 @@ class Solution {
             if(current == end)
             {
                 result.push_back(path);
-                //path.clear();
                 return;
             }
 
-            //unordered_set<string> nexts = next_hops(current, dict);
             unordered_set<string> nexts = next_hops.find(current)->second;
             for(auto item: nexts)
             {
@@ -56,21 +54,6 @@ class Solution {
                     count++;
             return count;
         }
-
-        /*
-           unordered_set<string> next_hops(string word, const unordered_set<string> & dict)
-           {
-           unordered_set<string> result;
-           for(auto item: dict)
-           {
-           if(diff(word, item) == 1)
-           {
-           result.insert(item);
-           }
-           }
-           return result;
-           }
-           */
 
         void build_next_hops(map<string, unordered_set<string> > & nhmap, const unordered_set<string> & dict)
         {
