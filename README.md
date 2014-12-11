@@ -974,6 +974,8 @@ One way to optimize it a bit, is to cache all the intermediate results.
 
 But apparently a better way would be DP. Instead of work you way top-down, go bottom-up. I haven't written this one yet. I will do this later. I will.
 
+Update: DP version added. Check Triangle.cc
+
 Unique Binary Search Trees I
 --------------------------
 
