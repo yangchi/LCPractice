@@ -1088,3 +1088,7 @@ I have several TLEs in this repo. Most can pass OJ. And here, this is the only o
 
 And my solution is learned from somewhere else anyway, so I guess I will save my words on this. It's a really hard problem. That's all I can say at this point.
 
+Find Peak Element
+------------------
+
+Since there is the logarithm complexity requirement, the straightforward linear search won't work. The natural choice, of course, would be binary search. Now suppose during the binary search, the middle element isn't a peak. Then should you search the first half, or the second half? The answer is the half that contains the neighbor of the middle element that's larger than the middle element itself. Why? Because this problem assumes num[-1] == num[n] == -infinity. This is the key here. Because of this assumption, the half that contains the larger neighbor definitely contains a peak.
