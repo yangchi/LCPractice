@@ -1097,3 +1097,45 @@ Intersection of Two Linked Lists
 -------------------------------
 
 If two lists are of the same length, then iterate both of them at the same time while checking whether current nodes are the same one. If one list is longer than the other, by K nodes, then move the pointer along this list by K first. And then start to move along both list while checking if identical.
+
+Maximum Gap
+------------------
+
+Without the linear complexity requirement, you can just sort the list, and scan it over to find the largest gap. With the linear complexity though, it becomes a bit tricky. Here is what you can do. First, find the maximal and minimal values from the list. Then build a bitset at the length of (maximal element - minimal element). Then scan over the list, and mark the bitset element as you scan along. And then scan the bitset to find the largest gap.
+
+This can work, except not on LeetCode. Turned out, you can't use bitset on LeetCode. Instead, you can use vector<bool>. But I got a TLE with this solution. Eventually I used the solution that people shared in the discussion board:
+
+After you find the maximal and minimal elements, you can divide you input vector into (N - 1) buckets. Each bucket is at the length of:
+
+	(int)ceil((double)(maxnum - minnum) / (double)(num.size() - 1));
+	
+Then you scan over the list, put each number into the bucket, while updating the maximal and minimal values (they are the boundaries of a bucket) of each bucket. Without maxnum and minmum, there are at most (N - 2) elements and there are (N - 1) buckets. So at least one bucket will be empty, which means you can ignore those numbers that fall between buckets boundaries, just scan over all your buckets, and update the maximal gap as you go:
+
+        for(auto elem : num) {
+            if (elem == minnum || elem == maxnum) {
+                continue;
+            }
+            int bucket_index = (elem - minnum) / bucket_size;
+            if (elem < bucket_mins[bucket_index]) {
+                bucket_mins[bucket_index] = elem;
+            }
+            if (elem > bucket_maxs[bucket_index]) {
+                bucket_maxs[bucket_index] = elem;
+            }
+        }
+        int previous = minnum;
+        int maxgap = INT_MIN;
+        for (int i = 0; i < num.size() - 1; i++) {
+            if (bucket_mins[i] == INT_MAX) { //nothing in this bucket
+                continue;
+            }
+            int gap_to_prev = bucket_mins[i] - previous;
+            int gap_current = bucket_maxs[i] - bucket_mins[i];
+            maxgap = gap_to_prev > maxgap ? gap_to_prev : maxgap;
+            maxgap = gap_current > maxgap ? gap_current : maxgap;
+            previous = bucket_maxs[i];
+        }
+        maxgap = (maxnum - previous) > maxgap ? (maxnum - previous) : maxgap;
+        return maxgap;
+        
+Now why does the bitset idea get a TLE but the bucket idea gets accepted? The bitset solution is at complexity O(max element - min element) while the bucket solution is at O(n), as the number of bucket has nothing to do with the maximal or minimal values of the input list. So if you get an input list like [2, 9999999], the bucket idea will be a lot faster than the bitset idea.
