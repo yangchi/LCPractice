@@ -1145,3 +1145,7 @@ Compare Version Numbers
 
 An annoying piece of cake. Definitely annoying. :( If you decide to split the version numbers according to the dot and put the result to a vector, you will get a "memory limit exceeds" error. So you have to compare each sub-version number as you parse the string.
 
+Fraction to Recurring Decimal
+---------------------------------
+
+You know what? No one stops you from converting both input to 64-bit integers first..
