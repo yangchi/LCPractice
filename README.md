@@ -1139,3 +1139,9 @@ Then you scan over the list, put each number into the bucket, while updating the
         return maxgap;
         
 Now why does the bitset idea get a TLE but the bucket idea gets accepted? The bitset solution is at complexity O(max element - min element) while the bucket solution is at O(n), as the number of bucket has nothing to do with the maximal or minimal values of the input list. So if you get an input list like [2, 9999999], the bucket idea will be a lot faster than the bitset idea.
+
+Compare Version Numbers
+----------------------------------
+
+An annoying piece of cake. Definitely annoying. :( If you decide to split the version numbers according to the dot and put the result to a vector, you will get a "memory limit exceeds" error. So you have to compare each sub-version number as you parse the string.
+
