@@ -1149,3 +1149,8 @@ Fraction to Recurring Decimal
 ---------------------------------
 
 You know what? No one stops you from converting both input to 64-bit integers first..
+
+Excel Sheet Column Title
+--------------------------------
+
+Who came up with such a boring problem?
