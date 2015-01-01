@@ -1154,3 +1154,10 @@ Excel Sheet Column Title
 --------------------------------
 
 Who came up with such a boring problem?
+
+Majority Element
+---------------------
+
+The easiest solution is to scan over the array while updating the number of appearance, and then return the one with the maximal count. But this isn't the most efficient solution, space-wise. There is no need to maintain the number of appearance, since that's not what we are looking for. Such information are redundant. [Majority Voting Algorithm](http://www.cs.utexas.edu/~moore/best-ideas/mjrty/) is the right answer to a problem like this.
+
+By the way, LeetCode OJ doesn't care if you use Majority Voting algorithm to avoid linear space complexity.
