@@ -1150,10 +1150,10 @@ Fraction to Recurring Decimal
 
 You know what? No one stops you from converting both input to 64-bit integers first..
 
-Excel Sheet Column Title
+Excel Sheet Column Title, Excel Sheet Column Number
 --------------------------------
 
-Who came up with such a boring problem?
+Who came up with such boring problems?
 
 Majority Element
 ---------------------
