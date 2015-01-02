@@ -700,7 +700,7 @@ I think this one is a bit harder than the regex matching, although LC marks both
 Remove Duplicates from Sorted Array I and II
 -----------------------
 
-For both of these two, you don't really have to remove anything, as all you want is just the length of the new array. For the second one, maintain a map. Both are easy.
+Both are easy. For both of these two, you don't really have to remove anything, as all you want is just the length of the new array. For the second one, maintaining a map is the most straightforward solution and you can pass the OJ with this solution. But actually the map isn't needed, since we are dealing with sorted array here. Just use to pointers, one to read, one to overwrite. When A[overwrite - 2] != A[read], do the overwrite. Otherwise, just move the read pointer forward. 
 
 Remove Duplicates from Sorted List I and II
 ------------------------
