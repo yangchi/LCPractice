@@ -9,20 +9,14 @@ public:
         if (n < 3) {
             return n;
         }
-        map<int, int> number_counter;
-        int index = 0, new_size = 0;
-        while(index < n) {
-            if (number_counter.find(A[index]) == number_counter.end()) {
-                number_counter[A[index]] = 1;
-                A[new_size++] = A[index++];
-            } else if (number_counter[A[index]] < 2) {
-                number_counter[A[index]]++;
-                A[new_size++] = A[index++];
-            } else {
-                index++;
+        int write_index = 2, read_index = 2;
+        while(read_index < n) {
+            if (A[write_index - 2] != A[read_index]) {
+                A[write_index++] = A[read_index];
             }
+            read_index++;
         }
-        return new_size;
+        return write_index;
     }
 };
 
