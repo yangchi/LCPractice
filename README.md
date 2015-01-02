@@ -1167,3 +1167,9 @@ Factorial Trailing Zeroes
 
 I was dumb on this... If you can't figure this out, go read the discussion board.
 
+Binary Search Tree Iterator
+--------------------------
+
+My understanding of the problem was completely wrong. When I read *"Your iterator will be initialized with the root node of a BST."* I thought it means the first next() function call will return the value of root node. NO! That's wrong. It should return the next smallest of the tree, which is the left-most descent of the root.
+
+The optimal solution requires a stack. Basically you are just doing a iterative in-order traverse here. 
