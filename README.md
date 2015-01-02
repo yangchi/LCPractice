@@ -650,7 +650,7 @@ It's a bit strange that such a problem appears on LC.
 Populating Next Right Pointers in Each Node I and II
 --------------------------------------
 
-In my case, I used the same solution for both I and II since I is just a special case of II. I used DFS, and always pass on the current node's next pointer when I walk my way down to leaves, since the current node's children's next pointer may need to point to the children nodes of current's next node. Of course, for I, since it's a perfect binary tree, this isn't really necessary.
+In my case, I used the same solution for both I and II since I is just a special case of II. For II, I used DFS. One tricky thing is you need to find the current next pointer target for the children nodes. This depend on the next pointer of the current node. Another tricky thing is, when you DFS down the tree, always visit the right side before the left sub-tree. Why? Because updating the next pointers of the left sub-tree depends on the next pointers of the right sub-tree already being filled out.
 
 Pow
 ------
