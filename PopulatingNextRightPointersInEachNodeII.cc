@@ -1,11 +1,12 @@
-/**
- * Definition for binary tree with next pointer.
- * struct TreeLinkNode {
- *  int val;
- *  TreeLinkNode *left, *right, *next;
- *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
- * };
- */
+#include <iostream>
+
+using namespace std;
+
+struct TreeLinkNode {
+    int val;
+    TreeLinkNode *left, *right, *next;
+    TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+};
 
 class Solution {
 public:
@@ -46,3 +47,23 @@ public:
         DFSwithDangling(root->left, root->left ? root->left->next: NULL);
     }
 };
+
+int main()
+{
+    Solution sol;
+    TreeLinkNode *root = new TreeLinkNode(2);
+    root->left = new TreeLinkNode(1);
+    root->right = new TreeLinkNode(3);
+    root->left->left = new TreeLinkNode(0);
+    root->left->right = new TreeLinkNode(7);
+    root->right->left = new TreeLinkNode(9);
+    root->right->right = new TreeLinkNode(1);
+    root->left->left->left = new TreeLinkNode(2);
+    root->left->right->left = new TreeLinkNode(1);
+    root->left->right->right = new TreeLinkNode(0);
+    root->right->right->left = new TreeLinkNode(8);
+    root->right->right->right = new TreeLinkNode(8);
+    root->left->right->right->left = new TreeLinkNode(7);
+
+    sol.connect(root);
+}
