@@ -1017,6 +1017,10 @@ Validate Binary Search Tree
 
 I almost fail this problem in an interview. It's actually very easy. But it's also very easy to get wrong. Just because both children of a node are BST doesn't mean the tree is a BST. You have to make sure the maximal value of left tree is smaller than the root which is smaller than minimal value of the right tree.
 
+This naturally leads to a recursive solution with some maximal and minimal boundary values passing down. And you may initiate this process with INT_MAX and INT_MIN values. But then you have to figure out a way to make sure your code works when INT_MAX or INT_MIN are indeed in the tree.
+
+Essentially a better solution is actually the inorder traversal. With a validate BST, inorder traversal should give you a sorted array. You don't really have to put everything into an array to solve this problem though. Turned out, you just need to verify the current node has a value that's greater than the previous node in the inorder traversal.
+
 Word Break
 ---------------
 
