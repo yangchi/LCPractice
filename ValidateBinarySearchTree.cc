@@ -1,29 +1,30 @@
 /**
- ** Definition for binary tree
- ** struct TreeNode {
- **     int val;
- **     TreeNode *left;
- **     TreeNode *right;
- **     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- ** };
- **/
+* Definition for binary tree
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+* };
+*/
 class Solution {
-    public:
-        bool isValidBST(TreeNode *root) {
-            return validateBSTLimits(root, INT_MAX, INT_MIN);
-        }
+public:
+    bool isValidBST(TreeNode *root) {
+        TreeNode * prev = NULL;
+        inorderValidate(root, prev);
+    }
 
-        bool validateBSTLimits(TreeNode *node, int max, int min) {
-            if (!node) {
-                return true;
-            }
-            if (node->val >= max || node->val <= min)
-                return false;
-            if (!node->left && !node->right) {
-                return true;
-            }
-            bool validLeft = validateBSTLimits(node->left, node->val, min);
-            bool validRight = validateBSTLimits(node->right, max, node->val);
-            return validLeft && validRight;
+    bool inorderValidate(TreeNode *root, TreeNode * & prev) {
+        if (!root) {
+            return true;
         }
+        if (!inorderValidate(root->left, prev)) {
+            return false;
+        }
+        if (prev && prev->val >= root->val) {
+            return false;
+        }
+        prev = root;
+        return inorderValidate(root->right, prev);
+    }
 };
