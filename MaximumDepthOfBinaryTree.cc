@@ -16,7 +16,6 @@ class Solution {
                 return 0;
             int leftdep = maxDepth(root->left);
             int rightdep = maxDepth(root->right);
-            int max = leftdep > rightdep ? leftdep : rightdep;
-            return max+1;
+            return 1 + (max(left_depth, right_depth));
         }
 };
