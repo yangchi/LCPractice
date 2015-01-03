@@ -1,20 +1,18 @@
 class Solution {
 public:
     int majorityElement(vector<int> &num) {
-        vector<int>::iterator candidate = num.end();
-        int counter = 0;
-        for(auto iter = num.begin(); iter != num.end(); iter++) {
-            if(counter == 0) {
-                candidate = iter;
-                counter++;
-            } else if (*candidate != *iter) {
-                if (--counter == 0) {
-                    candidate = iter;
-                }
+        int candidate = num[0];
+        int vote = 0;
+        for(auto elem : num) {
+            if (vote == 0) {
+                candidate = elem;
+                vote = 1;
+            } else if (candidate == elem) {
+                vote++;
             } else {
-                counter++;
+                vote--;
             }
         }
-        return *candidate;
+        return candidate;
     }
 };
