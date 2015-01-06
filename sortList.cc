@@ -109,6 +109,56 @@ class Solution {
             PrintList(leftmost, lastNext);
             return leftmost;
         }
+
+        /* merge [first ... second/NULL) and [second ... last/NULL) */
+        ListNode *merge_2(ListNode *first, ListNode *second, ListNode *last) {
+            if (!first) {
+                return second;
+            }
+
+            if (!second) {
+                return first;
+            }
+
+            ListNode *head = NULL, *current = NULL;
+            ListNode *first_current = first, *second_current = second;
+            if (first->val < second->val) {
+                head = first;
+                head->next = merge(first->next, second, last);
+            } else {
+                head = second;
+                head->next = merge(first, second->next, last);
+            }
+
+            return head;
+
+            /*
+               current = head;
+               while(first_current && first_current != second && second && second_current != last) {
+               if (first_current->val < second_current->val) {
+               current->next = first_current;
+               first_current = first_current->next;
+               } else {
+               current->next = second_current;
+               second_current = second_current->next;
+               }
+               current = current->next;
+               }
+
+               if(first_current && first_current != second) {
+               current = first_current;
+               while(current->next != second) {
+               current = current->next;
+               }
+               current->next = last;
+               }
+
+               if (second_current && second_current != last) {
+               current = second_current;
+               }
+               return head;
+               */
+        }
 };
 
 int main()
