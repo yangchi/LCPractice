@@ -202,6 +202,8 @@ Construct Binary Tree from Inorder and Postorder Traversal and Construct Binary 
 
 Both problems look pretty straightforward to me as recursive problems. I didn't pass the large test cases though. Shame on me.. I will try iterative later..
 
+Update: Ye I passed both now. :)
+
 Container with Most Water
 -----------------------------------
 
