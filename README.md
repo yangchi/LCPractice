@@ -532,6 +532,8 @@ It's not a hard algorithm problem. But I didn't get the implementation right due
 
 And I haven't had the time to work this out..
 
+Update: Phew, I got this one passed, finally.
+
 Maximal Rectangle
 ---------------------------
 
