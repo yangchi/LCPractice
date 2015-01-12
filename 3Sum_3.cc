@@ -5,43 +5,38 @@
 using namespace std;
 
 class Solution {
-    public:
-        vector<vector<int> > threeSum(vector<int> &num) {
-            sort(num.begin(), num.end());
-            vector<vector<int>> result;
-            for(int i = 0; i < num.size(); i++) {
-                if(i > 0 && num[i] == num[i - 1])
-                    continue;
-                int index_left = i + 1;
-                int index_right = num.size() - 1;
-                while(index_left < index_right) {
-                    if (num[i] + num[index_left] + num[index_right] == 0) {
-                        vector<int> newresult{num[i], num[index_left], num[index_right]};
-                        result.push_back(newresult);
-                        if(index_left < index_right && num[index_left + 1] != num[index_left]) {
-                            index_left++;
-                        } else {
-                            while(index_left < index_right && num[index_left + 1] == num[index_left]) {
-                                index_left++;
-                            }
-                        }
-                        if(index_right > index_left && num[index_right - 1] != num[index_right]) {
-                            index_right--;
-                        } else {
-                            while(index_left < index_right && num[index_right - 1] == num[index_right]) {
-                                index_right--;
-                            }
-                        }
-                    } else if (num[i] + num[index_left] + num[index_right] > 0) {
-                        index_right--;
-                    } else {
-                        index_left++;
-                    }
-                }
+public:
+    vector<vector<int> > threeSum(vector<int> &num) {
+        sort(num.begin(), num.end());
+        vector<vector<int>> results;
+        for(int i = 0; i < num.size(); i++) {
+            if (i > 0 && num[i] == num[i - 1]) {
+                continue;
             }
-            result.erase(unique(result.begin(), result.end()), result.end());
-            return result;
+            int left = i + 1;
+            int right = num.size() - 1;
+            while(left < right) {
+                if (num[left] + num[right] + num[i] == 0) {
+                    results.push_back(vector<int>({num[i], num[left], num[right]}));
+                    while(left + 1 < right && num[left + 1] == num[left]) {
+                        left++;
+                    }
+                    left++;
+                    while(right - 1 > left && num[right - 1] == num[right]) {
+                        right--;
+                    }
+                    right--;
+                } else if (num[left] + num[right] + num[i] < 0) {
+                    left++;
+                } else {
+                    right--;
+                }
+
+            }
         }
+        results.erase(unique(results.begin(), results.end()), results.end());
+        return results;
+    }
 };
 
 int main()
