@@ -1,35 +1,52 @@
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
 class Solution {
 public:
     vector<vector<int> > threeSum(vector<int> &num) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        if(num.empty() || num.size() < 3)
-            return vector<vector<int> > ();
         sort(num.begin(), num.end());
-        set<vector<int> > results;
-        for(int first = 0; first < num.size()-2; first++)
-        {
-            int head = first + 1;
-            int tail = num.size()-1;
-            while(tail > head)
-            {
-                if(0 == num[first] + num[head] + num[tail])
-                {
-                    int array[] = {num[first], num[head], num[tail]};
-                    vector<int> result(array, array+sizeof(array)/sizeof(array[0]));
-                    results.insert(result);
-                    tail--;
-                    head++;
+        vector<vector<int>> results;
+        for(int i = 0; i < num.size(); i++) {
+            if (i > 0 && num[i] == num[i - 1]) {
+                continue;
+            }
+            int left = i + 1;
+            int right = num.size() - 1;
+            while(left < right) {
+                if (num[left] + num[right] + num[i] == 0) {
+                    results.push_back(vector<int>({num[i], num[left], num[right]}));
+                    while(left + 1 < right && num[left + 1] == num[left]) {
+                        left++;
+                    }
+                    left++;
+                    while(right - 1 > left && num[right - 1] == num[right]) {
+                        right--;
+                    }
+                    right--;
+                } else if (num[left] + num[right] + num[i] < 0) {
+                    left++;
+                } else {
+                    right--;
                 }
-                while(0 < num[first] + num[head] + num[tail] && tail > head)
-                    tail--;
-                while(0 > num[first] + num[head] + num[tail] && tail > head)
-                    head++;
+
             }
         }
-        if(results.empty())
-            return vector<vector<int> > ();
-        vector<vector<int> > result_v(results.begin(), results.end());
-        return result_v;
+        results.erase(unique(results.begin(), results.end()), results.end());
+        return results;
     }
 };
+
+int main()
+{
+    Solution sol;
+    vector<int> input {-1, -1, -1, 0, 1, 1};
+    vector<vector<int>> result = sol.threeSum(input);
+    for(auto vec: result) {
+        for(auto elem: vec) {
+             cout << elem << endl;
+        }
+    }
+}
