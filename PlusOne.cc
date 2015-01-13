@@ -6,20 +6,22 @@ using namespace std;
 class Solution {
     public:
         vector<int> plusOne(vector<int> &digits) {
-            if (digits.empty()) {
-                return vector<int>();
-            }
             int index = digits.size() - 1;
-            while(index >= 0 && digits[index] == 9) {
-                digits[index--] = 0;
+            while(index >= 0) {
+                if (digits[index] == 9) {
+                    digits[index--] = 0;
+                } else {
+                    digits[index]++;
+                    break;
+                }
             }
-            digits[index]++;
-            vector<int> result(digits.begin(), digits.end());
-            if (result[0] == 0) {
-                result.insert(result.begin(), 1);
+            if (digits[0] == 0) {
+                vector<int> result(digits.size() + 1, 0);
+                result[0] = 1;
+                return result;
+            } else {
+                return digits;
             }
-
-            return result;
         }
 };
 
