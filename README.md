@@ -557,7 +557,7 @@ Probably the easiest recursive problem on LC?
 Maximum Product Subarray
 ------------------------------------
 
-Apparently the only tricky part is that some numbers in the array are negative. And the solution is besides the running maximal till each element in the array, also mention the running minimal.
+Apparently the only tricky part is that some numbers in the array are negative. And the solution is besides the running maximal till each element in the array, also maintain the running minimal.
 
 Maximum Subarray
 --------------------------
