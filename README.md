@@ -217,7 +217,7 @@ Recursive. Hey I passed this one. :)
 Convert Sorted List to Binary Search Tree
 ---------------------------
 
-The idea is the same as the one above. But since we cannot random access a node in linked list, the implementation can be a bit awkward if you try to emulate the previous solution. There are better and smarter solutions you can find online. Mine sucks, though works..
+The idea is the same as the one above. But since we cannot random access a node in linked list, the implementation can be a bit awkward if you try to emulate the previous solution. You will need to find the middle point of the linked list.
 
 Copy List with Random Pointer
 -----------------------------------------
