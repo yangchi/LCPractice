@@ -1,44 +1,46 @@
+/**
+* Definition for singly-linked list.
+* struct ListNode {
+*     int val;
+*     ListNode *next;
+*     ListNode(int x) : val(x), next(NULL) {}
+* };
+*/
+/**
+* Definition for binary tree
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+* };
+*/
 class Solution {
-    public:
-        TreeNode *sortedListToBST(ListNode *head) {
-            // Start typing your C/C++ solution below
-            // DO NOT write int main() function
-            if(!head)
-                return NULL;
-            ListNode *current = head;
-            while(current->next) {
-                current = current->next;
-            }
-            return BuildBST(head, current);
+public:
+    TreeNode *sortedListToBST(ListNode *head) {
+        if (!head) {
+            return NULL;
         }
+        if (!head->next) {
+            return new TreeNode(head->val);
+        }
+        ListNode *prev = NULL, *slow = head, *fast = head;
+        while(fast && fast->next && fast->next->next) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        TreeNode *root = new TreeNode(slow->val);
+        if (prev) {
+            prev->next = NULL;
+            root->left = sortedListToBST(head);
+        } else {
+            root->left = NULL;
+        }
+        ListNode *second_half = slow->next;
+        slow->next = NULL;
+        root->right = sortedListToBST(second_half);
+        return root;
+    }
 
-        TreeNode *BuildBST(ListNode *start, ListNode *end) {
-            if(start == NULL || end == NULL)
-                return NULL;
-            if(start == end) {
-                TreeNode *root = new TreeNode(start->val);
-                return root;
-            }
-            int counter = 1;
-            ListNode *current = start;
-            while(current->next && current != end) {
-                current = current->next;
-                counter++;
-            }
-            int middle = counter/2;
-            current = start;
-            while(--middle) {
-                current = current->next;
-            }
-            TreeNode *lefttree = BuildBST(start, current);
-            TreeNode *righttree = NULL;
-            if(current->next->next && current != end && current->next != end && current->next->next != end)
-                righttree = BuildBST(current->next->next, end);
-            else if(current->next != end)
-                righttree = BuildBST(end, end);
-            TreeNode *root = new TreeNode(current->next->val);
-            root->left = lefttree;
-            root->right = righttree;
-            return root;
-        }
 };
