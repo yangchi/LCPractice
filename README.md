@@ -236,7 +236,7 @@ Turned out you just need one map to map old node the the new one. And then you c
 
 Must better than using 4 maps, right?
 
-The best solution solves this problem in-place without any freaking map: in one loop, keep inserting new node right after its corresponding old node; then in another loop to set up random pointers of new nodes; finally use another loop to separate new nodes out to form the new list.
+The best solution solves this problem in-place without any freaking map: in one loop, keep inserting new node right after its corresponding old node; then in another loop to set up random pointers of new nodes; finally use another loop to separate new nodes out to form the new list. I have updated my code with this solution.
 
 See, that's why we keep going back to LeetCode.
 
