@@ -1181,3 +1181,14 @@ Binary Search Tree Iterator
 My understanding of the problem was completely wrong. When I read *"Your iterator will be initialized with the root node of a BST."* I thought it means the first next() function call will return the value of root node. NO! That's wrong. It should return the next smallest of the tree, which is the left-most descent of the root.
 
 The optimal solution requires a stack. Basically you are just doing a iterative in-order traverse here. 
+
+Largest Number
+---------------------
+
+My first reaction is to sort all the input numbers by digits, from the most significant to the least significant. So for example, if you have 56 and 34, 56 has to come before 34.
+
+But this turned out to be wrong. Just take 812 and 81 as an instance. When you sort them based on digits, 812 is larger than 81, but you should put 81 ahead of 812, as 81812 is larger than 81281.
+
+Turned out, the way to sort them is just to calculate if (s1 + s2) is larger than (s2 + s1).
+
+Once you have them sorted in this order, the final result is just a concatenation of the sorted numbers.
