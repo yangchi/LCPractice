@@ -628,6 +628,8 @@ Palindrome Number
 
 My current solution passed OJ but has a risk. It reverses the number. But this may lead to an overflow. So what you can do is to take half of the digits, and compare it with the other half. I should try that.
 
+Update: added another version (in C++) that should not have the overflow problem.
+
 Palindrome Partition I and II
 --------------------------------------
 
