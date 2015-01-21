@@ -1192,3 +1192,25 @@ But this turned out to be wrong. Just take 812 and 81 as an instance. When you s
 Turned out, the way to sort them is just to calculate if (s1 + s2) is larger than (s2 + s1).
 
 Once you have them sorted in this order, the final result is just a concatenation of the sorted numbers.
+
+Dungeon Game
+---------------------
+
+I have no clue where the name comes from.
+
+My first reaction was this is the same as "[Minimum Path Sum](https://github.com/yangchi/LCPractice#minimum-path-sum)". So I worked my way bottom-up, calculating maximum possible accumulated health values H(i, j) a knight will have when he travels bottom up. And if this value at the starting point (H(0, 0)) is larger than 0, this means he can collect enough magic orbs along the way to cover all his losses. Then we only need to enter the game with health value 1. If H(0, 0) is less than 0, then we need to give the knight the 1 - H(0, 0) to make sure he gets to the bottom with positive health value.
+
+You see the problem, do you?
+
+The problem is the knight have to have a positive health value at any point during his trip. So I changed my DP state transition formula to the one below:
+
+	//dp[i][j] is the minimum health value the knight has to have to safely enter spot (i, j)
+	dp[i][j] = 1, if dungeon[i][j] > min(dp[i + 1][j], dp[i][j + 1])
+	dp[i][j] = min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j], otherwise
+	
+Again you have to work your way bottom up, and you start the iteration with this initial state:
+
+	dp[rows - 1][cols - 1] = 1, if dungeon[rows - 1][cols - 1] >= 0 
+	dp[rows - 1][cols - 1] = -dungeon[rows - 1][cols - 1] + 1, otherwise
+	
+*rows* and *cols* and the total number of rows and columns in the map. Note that the initial state of DP, i.e. the *dp* value at the right-bottom corner, has to be at least 1.
