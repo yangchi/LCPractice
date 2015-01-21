@@ -245,6 +245,8 @@ Count and Say
 
 Pretty easy to solve. I used recursive and passed. But you don't have to as the iterative solution is also very easy
 
+Update: iterative version added.
+
 Decode Ways
 ------------------
 
