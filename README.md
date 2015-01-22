@@ -353,6 +353,8 @@ Insertion Sort List
 
 Sometimes in my life, I open some code I wrote some time ago, and I ask myself, why, why do you do this (to yourself)?!?!
 
+Update: I added a slightly different and better version. Ah... feels better.
+
 Integer to Roman
 -----------------------
 
