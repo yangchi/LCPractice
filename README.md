@@ -389,6 +389,8 @@ I used two-dimensional DP. But I think there is a one-dimensional solution you c
 
 I think I just realized how easy it is to write in one-dimensional.. :)
 
+Update: And turned out my version of 1-D DP is wrong. I stick with 2-D for now. There is also a BFS solution that definitely deserves checking out.
+
 Jump Game I and II
 ----------------
 
