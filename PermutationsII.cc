@@ -14,7 +14,7 @@ class Solution {
             while(change_pos != -1){
                 int dest = search_for_destination(num, change_pos);
                 swap(num, change_pos, dest);
-                reverse(num.begin() + change_pos + 1, num.end());
+                sort(num.begin() + change_pos + 1, num.end()); //reverse
                 results.push_back(num);
                 change_pos = search_for_change_point(num);
             }
