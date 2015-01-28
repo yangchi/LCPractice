@@ -6,7 +6,7 @@ class Solution {
             int pos = change_point(num);
             if(pos != -1){
                 swap(num, pos, change_destination(num, pos));
-                reverse(num.begin()+pos+1, num.end());
+                sort(num.begin()+pos+1, num.end());
             } else {
                 sort(num.begin(), num.end());
             }
