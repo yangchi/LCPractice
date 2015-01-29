@@ -1,48 +1,48 @@
 class Solution {
 public:
-    vector<vector<int> > generateMatrix(int n) {
-        vector<vector<int>> result;
-        for(int i = 0; i < n; i++) {
-            result.push_back(vector<int>(n, 0));
-        }
-        int direction = 0;
-        int current = 0;
-        int row = 0, col = 0;
-        while(current < n * n) {
-            if(direction == 0) {
-                while(col < n && result[row][col] == 0) {
-                    result[row][col] = ++current;
-                    col++;
-                }
-                row++;
-                col--;
-                direction = 1;
-            } else if(direction == 1) {
-                while(row < n && result[row][col] == 0) {
-                    result[row][col] = ++current;
-                    row++;
-                }
-                row--;
-                col--;
-                direction = 2;
-            } else if(direction == 2) {
-                while(col >= 0 && result[row][col] == 0) {
-                    result[row][col] = ++current;
-                    col--;
-                }
-                col++;
-                row--;
-                direction = 3;
-            } else {
-                while(row >= 0 && result[row][col] == 0) {
-                    result[row][col] = ++current;
-                    row--;
-                }
-                row++;
-                col++;
-                direction = 0;
+    vector<int> spiralOrder(vector<vector<int> > &matrix) {
+            int current_direction = 0;
+            int count = 0;
+            vector<int> result;
+            if(matrix.empty()) {
+                return result;
             }
+            int top = 0;
+            int bottom = matrix.size() - 1;
+            int left = 0;
+            int right = matrix[0].size() - 1;
+            int total = matrix.size() * matrix[0].size();
+            while(count < total) {
+                if (current_direction == 0) {
+                    for (int i = left; i <= right; i++) {
+                        result.push_back(matrix[top][i]);
+                        count++;
+                    }
+                    current_direction = 1;
+                    top++;
+                } else if (current_direction == 1) {
+                    for(int i = top; i <= bottom; i++) {
+                        result.push_back(matrix[i][right]);
+                        count++;
+                    }
+                    current_direction = 2;
+                    right--;
+                } else if (current_direction == 2) {
+                    for(int i = right; i >= left ; i--) {
+                        result.push_back(matrix[bottom][i]);
+                        count++;
+                    }
+                    current_direction = 3;
+                    bottom--;
+                } else {
+                    for(int i = bottom; i >= top; i--) {
+                        result.push_back(matrix[i][left]);
+                        count++;
+                    }
+                    current_direction = 0;
+                    left++;
+                }
+            }
+            return result;
         }
-        return result;
-    }
 };
