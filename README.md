@@ -908,6 +908,8 @@ Maintain a map<string, int> to check how many of each string in L that we will n
 
 Is there a better solution than this? Or is it just my implemenetation?
 
+Update: Turned out it's just the implementation. Now I passed OJ.
+
 Sudoku Solver
 --------------------
 
