@@ -531,6 +531,10 @@ Longest Substring Without Repeating Characters
 
 Maintain a running map<char, index>.
 
+Update: Apparently this doesn't work any more. It used to. I guess LC either changed the time requirement or added more test cases. So here is a new solution to pass OJ: instead of using a map as I suggested above, use a array or vector that has a length of 256. Initially every element in the array has a value -1. Then as you go through the input string, update the index of each character and update the array based on the ASCII value of the character. When the input is long enough, this works better than using a map<>. But, of course, we are not restricting ourself to ASCII characters only.
+
+This is a typical example that a solution works better on some OJ, but worth in real world.
+
 Max Points on a Line
 ----------------------------
 
