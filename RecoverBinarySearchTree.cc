@@ -30,10 +30,9 @@ public:
                 *first = *pre;
             }
             *second = node;
-        } else {
-            *pre = node;
-        }
+        } 
 
+        *pre = node;
         recoverTree(node->right, pre, first, second);
     }
 };
