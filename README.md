@@ -1228,3 +1228,8 @@ Again you have to work your way bottom up, and you start the iteration with this
 	dp[rows - 1][cols - 1] = -dungeon[rows - 1][cols - 1] + 1, otherwise
 	
 *rows* and *cols* and the total number of rows and columns in the map. Note that the initial state of DP, i.e. the *dp* value at the right-bottom corner, has to be at least 1.
+
+Repeated DNA Sequences
+--------------------------------------
+
+If you use a map<string, int>, it will exceeds the memory limit in LeetCode. Instead, you can hash the string into a number, or come up with certain encoding algorithms.
