@@ -748,7 +748,7 @@ I used recursive algorithm. But it seems from the discussion board that simply t
 Reverse Integer
 ------------------
 
-Don't forget to check if it's negative integer.
+Don't forget to check if it's negative integer. And check if it will overflow.
 
 Reverse Linked List II
 ---------------------
