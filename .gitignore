@@ -1,3 +1,5 @@
+*.class
+Solution.java
 temp*
 *.swp
 .DS_store
