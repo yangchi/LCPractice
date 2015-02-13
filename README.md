@@ -873,7 +873,11 @@ I used the count sort algorithm. There is a very smart algorithm that only requi
        	}
     }
        
-I won't even try to explain this in human langauges. The cold tells everything. It's just smart.
+I won't even try to explain this in human languages. The cold tells everything. It's just smart.
+
+There is another to do it. You can maintain two indices. One points to where to write the next red element, one points to where to write the next blue element. The former one starts from the beginning of the list, and the latter one starts from the end of the list. Then use another index to travel the list and swap with one of the two indices when run into red and blue. After one pass white will be in the middle. Check the c++ version of the code.
+
+Now what if you have N colors instead of just three? I was asked this in an interview. On my way home I realized, N = 1 + (N - 2) + 1. So handle two of them in the same way you handle red and blue in the 3-color case. Don't worry about the other N - 2 colors for now. After you take care of the first two colors, recursively take care the other N - 2.
 
 Spiral Matrix I and II
 ---------------------------
