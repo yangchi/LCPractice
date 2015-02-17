@@ -5,49 +5,42 @@ class Solution {
                 return 0;
             }
 
-            if (height.size() == 1) {
-                return height[0];
-            }
-            stack<int> barstack;
-            int maxarea = INT_MIN;
+            stack<int> maxes;
+            int largest = INT_MIN;
             int i = 0;
             while(i < height.size()) {
-                if (barstack.empty()) {
-                    barstack.push(i++);
-                    continue;
-                }
-                int current_top = barstack.top();
-                if (height[i] >= height[current_top]) {
-                    barstack.push(i++);
+                if (maxes.empty() || height[i] >= height[maxes.top()]) {
+                    maxes.push(i);
+                    i++;
                 } else {
-                    barstack.pop();
+                    int curr_top_index = maxes.top();
+                    maxes.pop();
                     int area;
-                    if (barstack.empty()) {
-                        area = height[current_top] * i;
+                    if (maxes.empty()) {
+                        area = height[maxes.top()] * i;
                     } else {
-                        int last_lower = barstack.top();
-                        area = height[current_top] * (i - last_lower - 1);
+                        area = height[curr_top_index] * (i - 1 - maxes.top());
                     }
-                    if (area > maxarea) {
-                        maxarea = area;
+                    if (area > largest) {
+                        largest = area;
                     }
                 }
             }
 
-            while(!barstack.empty()) {
-                int current_top = barstack.top();
+            while(!maxes.empty()) {
+                int curr_top_index = maxes.top();
+                maxes.pop();
                 int area;
-                barstack.pop();
-                if (barstack.empty()) {
-                    area = height[current_top] * height.size();
+                if (maxes.empty()) {
+                    area = height[curr_top_index] * height.size();
                 } else {
-                    int next_top = barstack.top();
-                    area = height[current_top] * (height.size() - 1 - next_top);
+                    area = height[curr_top_index] * (height.size() - maxes.top() - 1);
                 }
-                if (area > maxarea) {
-                    maxarea = area;
+                if (area > largest) {
+                    largest = area;
                 }
             }
-            return maxarea;
+
+            return largest;
         }
 };
