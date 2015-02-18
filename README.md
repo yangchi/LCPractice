@@ -1055,6 +1055,8 @@ Word Break II
 
 DP. Pretty much the same as Word Break I, except now you have to keep record all the valid sub-sentences up to each point.
 
+And here is a site note: due to some input in the test cases, when you dp from beginning of string to the end, you will fail to pass OJ, but once you turn it around, you will pass. But that's just because the test cases used by LC.
+
 Word Ladder I and II
 ------------------
 
