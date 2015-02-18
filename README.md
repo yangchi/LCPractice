@@ -1110,9 +1110,42 @@ Use another stack to hold running minimal up to each point. I think this is the 
 Median of Two Sorted Arrays
 -----------------------------------
 
-I have several TLEs in this repo. Most can pass OJ. And here, this is the only one that got a Runtime error on LC. I have no idea why.. LC has been giving less and less error messages these days.
+This is a really hard and annoying problem. It took me very long time to pass OJ. I learned the solution somewhere else, and then I got runtime error, TLE, wrong answer, etc, etc... Then I put it aside for about 2 months before I finally decided to debug it, and eventually passed OJ.
 
-And my solution is learned from somewhere else anyway, so I guess I will save my words on this. It's a really hard problem. That's all I can say at this point.
+You can take a look at my code. It's a bit nasty. Here is what the code does: I used a more generic function findKthSmallest() to find the K-th smallest number of two sorted arrays. Now how does findKthSmallest() works? It's actually very similar to QuickSelect(), except now after you select some index from both array, if it's not the K-th in the merged array, you drop elements from both arrays:
+
+	```
+    if(valueA >= valueB_prev && valueA <= valueB) {
+      	  return valueA;
+    } else if(valueB >= valueA_prev && valueB <= valueA) {
+        return valueB;
+    } else if(valueA < valueB_prev) {
+        return findKthSmallest(A, indexA + 1, endA, B, startB, indexB, k - (indexA - startA) - 1);
+    } else {
+        return findKthSmallest(A, startA, indexA, B, indexB + 1, endB, k - (indexB - startB) - 1);
+    }
+	```
+
+And here is how you randomly pick values from both arrays:
+
+	```
+	int indexA = startA, indexB = startB;
+    if (lengthA > lengthB) {
+        forward = (int)ceil(((double)lengthA * k / (lengthA + lengthB)));
+        indexA += forward;
+        indexB += (k - forward);
+    } else {
+        forward = (int)ceil(((double)lengthB * k / (lengthA + lengthB)));
+        indexB += forward;
+        indexA += (k - forward);
+    }
+    ```
+
+In human language, based on the length of current arrays A and B, proportionally pick two indices so that their sum is K. If the random picked value of A happens to be in-between the random value from B and its previous element, it is the K-th element in the merged array. Or similarly if value from B is in-between the random value from A and its previous element, then this value from B is the K-th smallest number in merged array.
+
+But if neither cases satisfy, depends on which value is smaller, we can drop values from both arrays and recursively continue the search. Without loss of generality, let's say value from A is the smaller one. That means the K-th smallest value cannot be in this range A[startA, ..., indexA]. So we can drop these values in the next round. And we can actually also drop some values from array B as well, i.e., the K-th smallest value cannot be in this range either: B[indexB, ..., endB). Why? Because in the next round, we will be looking for (K - (index - startA) - 1)-th element, and the range B[startB, ..., indexB) will at least include that much. So there is no need to peek into B[indexB, ..., endB)
+
+I hope this explanation helps. For the time complexity of this code, since in this particular case we are looking for the median, so on average, each round we drop about half of the currently existing numbers. Thus O(log(n + m)).
 
 Find Peak Element
 ------------------
