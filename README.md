@@ -165,7 +165,7 @@ My first reaction was recursive. Then DP. Then Fibonacci. My code has one proble
 Clone Graph
 ------------------
 
-DFS with a queue. Use a map to map between node in old graph and node in new graph.
+BFS with a queue. Use a map to map between node in old graph and node in new graph.
 
 Combinations, Combination Sum and Combination SumII
 -----------------
