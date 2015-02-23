@@ -1,48 +1,46 @@
-#include <iostream>
-#include <vector>
-#include <string>
-
-using namespace std;
-
 class Solution {
-public:
-    string fractionToDecimal(int numerator, int denominator) {
-        int64_t num64 = numerator;
-        int64_t dec64 = denominator;
-        string sign = ((num64 < 0 && dec64 > 0) || (num64 > 0 && dec64 < 0)) ? "-" : "";
-        num64 = num64 > 0 ? num64 : -num64;
-        dec64 = dec64 > 0 ? dec64 : -dec64;
-        string integer_part = to_string(num64 / dec64);
-        if (num64 > dec64) {
-            num64 -= num64 / dec64 * dec64;
-        }
-        string fractional_part = "";
-        vector<int64_t> num_seq({num64});
-        num64 *= 10;
-        while (num64) {
-            if (num64 < dec64) {
-                fractional_part += "0";
-                num_seq.push_back(num64);
-                num64 *= 10;
-                continue;
+    public:
+        string fractionToDecimal(int numerator, int denominator) {
+            int64_t num = numerator;
+            int64_t den = denominator;
+            string sign = (num > 0 && den < 0 || num < 0 && den > 0) ? "-" : "";
+            if (num < 0) {
+                num = -num;
             }
 
-            fractional_part += to_string(num64 / dec64);
-            num64 -= num64 / dec64 * dec64;
-            if (find(num_seq.begin(), num_seq.end(), num64) != num_seq.end()) { //loop
-                size_t loop_point = find(num_seq.begin(), num_seq.end(), num64) - num_seq.begin();
-                return sign + integer_part + "." + fractional_part.substr(0, loop_point) + "(" + fractional_part.substr(loop_point) + ")";
-            } else {
-                num_seq.push_back(num64);
-                num64 *= 10;
+            if (den < 0) {
+                den = -den;
             }
+            if (den == 1) {
+                return sign + to_string(num);
+            }
+            string integer_part = to_string(num / den);
+            num = num - den * (num / den);
+            if (num == 0) {
+                return sign + integer_part;
+            }
+
+            map<int64_t, int> rem_index; //map rem to index
+            string frac_part = ".";
+            rem_index[num] = frac_part.size();
+            num *= 10;
+            while(num > 0) {
+                while (num < den) {
+                    frac_part += "0";
+                    rem_index[num] = frac_part.size();
+                    num *= 10;
+                }
+                int64_t rem = num - den * (num / den);
+                frac_part += to_string(num / den);
+                if (rem_index.find(rem) != rem_index.end()) {
+                    frac_part = frac_part.substr(0, rem_index[rem]) + "(" + frac_part.substr(rem_index[rem]) + ")";
+                    break;
+                } else {
+                    rem_index[rem] = frac_part.size();
+                    num = rem * 10;
+                }
+            }
+
+            return sign + integer_part + frac_part;
         }
-        return sign + integer_part + (fractional_part.empty() ? "" : "." + fractional_part);
-    }
 };
-
-int main()
-{
-    Solution sol;
-    cout << sol.fractionToDecimal(-50, 8) << endl;
-}
