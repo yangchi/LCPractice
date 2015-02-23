@@ -1,30 +1,34 @@
 class Solution {
-public:
-    vector<vector<int> > threeSum(vector<int> &num) {
-        sort(num.begin(), num.end());
-        set<vector<int>> result;
-        for(int first = 0; first < num.size(); first++) {
-            if (first > 0 && num[first] == num[first - 1]) {
-                continue;
-            }
-            int second = first + 1, third = num.size() - 1;
-            while(second < third) {
-                int current_sum = num[first] + num[second] + num[third];
-                if (current_sum == 0) {
-                    result.insert(vector<int>({num[first], num[second], num[third]}));
-                    do {
-                        second++;
-                    } while (num[second - 1] == num[second]);
-                    do {
-                        third--;
-                    } while (num[third + 1] == num[third]);
-                } else if (current_sum > 0) {
-                    third--;
-                } else {
-                    second++;
+    public:
+        vector<vector<int> > threeSum(vector<int> &num) {
+            sort(num.begin(), num.end());
+            vector<vector<int>> result;
+            int left, right;
+            for (int fixed = 0; fixed < num.size(); fixed++) {
+                if (fixed > 0 && num[fixed] == num[fixed - 1]) {
+                    continue;
+                }
+                left = fixed + 1;
+                right = num.size() - 1;
+                while(left < right) {
+                    int cur_sum = num[fixed] + num[left] + num[right];
+                    if (cur_sum == 0) {
+                        vector<int> current = {num[fixed], num[left], num[right]};
+                        result.push_back(current);
+                        do {
+                            left++;
+                        } while(num[left] == num[left - 1] && left < right);
+                        do {
+                            right--;
+                        } while(num[right] == num[right + 1] && left < right);
+                    } else if (cur_sum < 0) {
+                        left++;
+                    } else {
+                        right--;
+                    }
                 }
             }
+
+            return result;
         }
-        return vector<vector<int>>(result.begin(), result.end());
-    }
 };
