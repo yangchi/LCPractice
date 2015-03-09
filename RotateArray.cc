@@ -5,17 +5,9 @@ class Solution {
             if (k <= 0) {
                 return;
             }
-            int temp[n];
-            for (int i = 0; i < k; i++) {
-                temp[i] = nums[n - k + i];
-            }
 
-            for (int i = k; i < n; i++) {
-                temp[i] = nums[i - k];
-            }
-
-            for (int i = 0; i < n; i++) {
-                nums[i] = temp[i];
-            }
+            reverse(nums, nums + n - k);
+            reverse(nums + n - k, nums + n);
+            reverse(nums, nums + n);
         }
 };
